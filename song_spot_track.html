@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html><head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+       <meta content="True" name="HandheldFriendly">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<meta name="viewport" content="width=device-width">
+<link href='http://fonts.googleapis.com/css?family=Indie+Flower|Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.0.0-rc10.min.js"></script>
+<style type="text/css">
+
+[data-icon]:before {
+	font-family:'MusicWhereIAM';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+div#contact{position:absolute; top:5px; right:5px;margin:0px;font-family:Arial, Helvetica, sans-serif; font-size:11px;}
+div#contact ul{margin:0px;padding:0px; margin-bottom:5px;}
+
+div#contact ul li{list-style-type:none; display:inline; margin-right: 7px;}
+div.attribute{font-family:Arial, Helvetica, sans-serif; font-size:8px;margin-top:5px; margin-left:15px; margin-right:15px;}
+a{color:#c53526}
+
+
+
+body{font-family:'Indie Flower', Arial; font-size:1.2em}
+
+::-webkit-scrollbar {
+      width: 10px;
+	  padding:0px;
+} /* this targets the default scrollbar (compulsory) */
+
+::-webkit-scrollbar-track {
+      background-color: none;
+} /* the new scrollbar will have a flat appearance with the set background color */
+::-webkit-scrollbar-thumb {
+      background-color: #eeeeee;
+	  opacity:.1;
+} /* this will style the thumb, ignoring the track */
+::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+	  opacity:.8
+}
+
+
+
+h4, #spot_holder .spot_icon, #fav_holder .spot_icon{font-family:'Indie Flower',  Arial;color:#c53526; font-size:2em; font-weight:bold; margin-top:5px;margin-bottom:0px; padding-bottom:0px;}
+#spot_holder h4, #spot_holder .spot_icon, #fav_holder h4, #fav_holder .spot_icon{float:left}
+ #spot_holder .spot_icon, #fav_holder .spot_icon{margin-top:20px;}	
+#fav_holder .spot_icon{margin-top:10px; margin-right:10px;}		
+	a{text-decoration:none;}
+    html { height: 100% }
+    body { height: 85%; margin: 0; padding: 0;  }
+	header{
+	margin-left:0px;
+	padding:20px;height:80px;
+	background-image:url('logo4_sm.png');
+	background-repeat: no-repeat;
+	margin-left:25px;
+	padding-bottom:0px;
+	margin-top:0px;
+
+	float:left;
+	width:150px;
+}
+	  section{ color:#cecdcd; margin-left:160px;}
+	 #map-area{height:95%;width:100%;}
+	   #geolocation_alert{margin:15px;}
+      #map-canvas { height: 100%; margin:15px; margin-top:0px; border:1px dashed #cecdcd }
+	  .info{/*color:black*/max-width:100px;  padding:5px;font-size:1.0em; overflow:hidden; font-family: "indie Flower", Arial;;}
+	  ul#chooser {margin:15px; padding:0;margin-top:0px;float:right; margin-right:15px;}
+ul#chooser li.active {
+	background-position: -50px 0px;
+	height:40px;
+	width:40px;
+	background-color:#c53526;
+	background-repeat:no-repeat;
+	color:white;t-size
+	border:1px dotted #cecdcd;
+	float: left;
+
+}
+.inactive{height:22px;
+	width:22px;
+	background-color:white;
+	background-repeat:no-repeat;
+	color:white;
+	padding:5px;
+	padding-top:0;
+	float:left;
+	background-position: -0px 0px;
+	cursor:pointer;
+	}
+
+ ul#chooser li, #chooser li div.inactive {
+	cursor:pointer;
+	height:40px;
+	width:40px;
+	color:#c53526;
+	background-repeat:no-repeat;
+	border: 1px solid #cecdcd;
+	padding:5px;
+	margin_bottom:15px;
+	font-size:0.9em;
+	list-style-type:none;
+	float: left;
+	background-position: -0 0px;
+}
+	   #whereto{margin:15px;}
+
+	   #info-area{float:left;display:none; border:2px solid #cecdcd;width:30%; height:70%;}
+
+	  .gm-style .gm-style-iw, .gm-style .gm-style-iw a, .gm-style .gm-style-iw span, .gm-style .gm-style-iw label, .gm-style .gm-style-iw div {
+    
+    font-weight: 300;
+	font-family:'Indie Flower', Arial; 
+
+
+	}
+
+
+
+
+.gm-style div, .gm-style span, .gm-style label {
+    text-decoration: none;
+}
+.gm-style{overflow-x:hidden;}
+.gm-style-iw {max-height:130px; overflow:scroll;  font-size:1.1em; overflow-x:hidden;min-width:120px;}
+.gm-style-iw div {overflow:scroll;overflow-x:hidden;  }
+.spot_link{text-decoration:none font-size:15px; color:#c53526;overflow:hidden;cursor:pointer;} 
+	.spot_link:hover{color:#cecdcd}
+
+
+@font-face {
+	font-family: 'MusicWhereIAM';
+	src:url('/fonts/MusicWhereIAM.eot?w8796i');
+	src:url('/fonts/MusicWhereIAM.eot?#iefixw8796i') format('embedded-opentype'),
+		url('/fonts/MusicWhereIAM.woff?w8796i') format('woff'),
+		url('/fonts/MusicWhereIAM.ttf?w8796i') format('truetype'),
+		url('/fonts/MusicWhereIAM.svg?w8796i#MusicWhereIAM') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[data-icon]:before {
+	font-family:'MusicWhereIAM';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+ #search{font-size:1em;; margin-left:15px;float:left;width:75%; margin-top:55px;}
+ 
+input{font-size:20px;}
+
+.search{
+
+font-size:15px;
+float: left;
+background: #c53526;
+color: #fff;
+padding: 5px;
+padding-bottom:0px;
+padding-left:7px; padding-right:7px;
+margin-top:57px;
+margin-left:-15px;
+cursor: pointer;border:1px solid #cecdcd;
+}
+#findmusic{font-size:13px; padding:4px;margin-bottom:5px; border:1px solid #cecdcd; width:100%;}
+.spacer{
+	font-size:15px;
+	float: left;
+	padding: 0px;
+	margin-top:2px;
+	cursor: pointer;
+	clear: both;
+}
+
+#genre_holder, #spot_holder, #fav_holder, #info-area { box-shadow:5px 5px 50px #cecdcd;width:30%;display:none; position:absolute; z-index:10000;border:1px; solid #cecdcd; background:white;left:0px;height:100%;top:0;overflow-y:auto;right:0; padding:20px;padding-top:0px; padding-bottom:0px;z-index:100; }
+ #genre_holder, {font-size:.8em; margin:5px;}
+ #spot_holder p.info,#fav_holder p.info #spot_holder p{margin-left:0px; font-size:1em; margin-bottom:5px;}
+ gm-style p.info{margin:0px;}
+ #spot_holder p.info, #fav_holder p.info{width:90%; max-width:90%}
+ #spot_holder div{margin:5px;}
+
+
+.open_div {font-size: 28px; margin-top:2px; font-weight:bold;color:#c53526;  float:left; cursor:pointer}
+.open_div_spot{font-size: 34px; margin-left:10px; font-weight:bold;color:#c53526;  float:left; cursor:pointer}
+.open_div_fav{font-size: 30px; margin-left:10px; font-weight:bold;color:#c53526;  float:left; cursor:pointer}
+#icon_holder{position:absolute; top:75%; right:5%; z-index:100001;padding:10px; background-color:white;padding-bottom:0px; opacity:.9}
+#icon_holder:hover{opacity:1;}
+.open_div:hover, .open_div_spot:hover, open_div_fav:hover{color:#c53526;}
+.genre{
+
+font-size:14px;
+float:left;
+background: #c53526;
+color: #fff;
+margin-bottom:5px;
+margin-right:2px;
+cursor: pointer;border:1px solid #cecdcd;
+width:27px;
+height:27px;
+background-repeat:no-repeat;
+
+margin-right:15px;
+font-size:1.3em
+}
+
+.geomix 
+{
+background-image:url(genre_icons/Roadtrip_geomix_sm.png);
+
+}
+.musicwhereyouare
+{
+background-image:url(genre_icons/music_where_you_are_sm.png);
+
+}
+.folowwme
+{
+background-image:url(genre_icons/follow_me_music_sm.png);
+
+}
+.addtospot
+{
+background-image:url(genre_icons/add_to_spot_sm.png);
+
+}
+
+
+.avant_garde
+{
+background-image:url(genre_icons/avant_garde_rw_sm.png);
+
+}
+.blues
+{
+background-image:url(genre_icons/blues_rw_sm.png);
+
+}
+
+.classic_rock
+{
+background-image:url(genre_icons/classic_rock_rw_sm.png);
+
+}
+
+.classical
+{
+background-image:url(genre_icons/classical_rw_sm.png);
+
+}
+
+.country
+{
+background-image:url(genre_icons/country_rw_sm.png);
+}
+.drama
+{
+background-image:url(genre_icons/drama_rw_sm.png);
+}
+.electronic
+{
+background-image:url(genre_icons/electronica_rw_sm.png);
+}
+.folk
+{
+background-image:url(genre_icons/folk_rw_sm.png);
+}
+.hip-hop
+{
+background-image:url(genre_icons/hip-hop_rw_sm.png);
+}
+.drama
+{
+background-image:url(genre_icons/drama_rw_sm.png);
+}
+.holiday
+{
+
+background-image:url(genre_icons/holiday_rw_sm.png);
+}
+.indie
+{
+
+background-image:url(genre_icons/indie_rw_sm.png);
+}
+.jazz
+{
+
+background-image:url(genre_icons/jazz_rw_sm.png);
+}
+.kids
+{
+
+background-image:url(genre_icons/kids_rw_sm.png);
+}
+.latin
+{
+
+background-image:url(genre_icons/latin_rw_sm.png);
+}
+.mic
+{
+
+background-image:url(genre_icons/mic_rw_sm.png);
+}
+.new_age
+{
+
+background-image:url(genre_icons/new_age_rw_sm.png);
+}
+.pop
+{
+
+background-image:url(genre_icons/pop_rw_sm.png);
+}
+.punk
+{
+background-image:url(genre_icons/punk_rw_sm.png);
+
+}
+.rb
+{
+
+background-image:url(genre_icons/r&b_rw_sm.png);
+}
+.rock
+{
+
+background-image:url(genre_icons/rock_rw_sm.png);
+}
+.soft_rock
+{
+background-image:url(genre_icons/soft_rock_rw_sm.png);
+
+}
+.world
+{
+
+background-image:url(genre_icons/world_rw_sm.png);
+}
+.on
+{
+background-position: -27px 0px;
+background-color: #c53526;
+border:1px solid #cecdcd;
+}
+.off
+{
+background-position: 0px 0px;
+background-color: #ffffff;
+border:1px solid #cecdcd;
+
+}
+
+.hider{
+display:none;
+}
+
+@media screen and (min-height:801px) and (max-height:1000px) 
+{	
+  #map-area{height:99%;width:100%;}
+ #icon_holder{top:87%;right:3%}
+ header{
+
+padding:0px;height:65px;
+background-image:url('logo4_sm.png');
+background-repeat: no-repeat;
+margin-left:15px;
+padding-bottom:0px;
+margin-top:0px; float:left;
+width:150px;
+}
+ 
+#genre_holder,fav_holder, #spot_holder, #info-area{width:50%}
+#search{width:61%; margin-bottom:0px;margin-top:35px;}
+.search{margin-top:37px;
+}
+}
+
+
+@media screen and (min-height:641px) and (max-height:800px)
+{
+    #map-area{height:90%;width:100%;}
+ #icon_holder{top:80%;right:2%}
+
+	body { height: 85%; margin: 0; padding: 0;   }
+	 header{
+
+	padding:0px;height:65px;
+	background-image:url('logo4_sm.png');
+	background-repeat: no-repeat;
+	margin-left:15px;
+	padding-bottom:0px;
+	margin-top:0px; float:left;
+	width:150px;
+}
+	 #geolocation_alert{margin:15px;}
+     
+	  .info{/*color:black*/max-width:100px;  padding:5px;font-size:1.0em; overflow:hidden;}
+
+
+
+#search{width:55%; margin-bottom:0px;margin-top:35px;}
+
+ #findmusic{font-size:13px; padding:5px;}
+input{font-size:20px;}
+.search{
+
+float: left;
+background: #c53526;
+color: #fff;
+padding: 5px;
+padding-bottom:0px;
+margin-top:37px;
+cursor: pointer;border:1px solid #cecdcd;
+}
+.spacer{
+
+font-size:15px;
+float: left;
+padding: 0px;
+margin-top:2px;
+cursor: pointer;}
+#genre_holder, fav_holder, #spot_holder, #info-area{width:50%}
+  
+
+	}
+
+@media screen and (min-height:360px) and (max-height:640px)
+{
+#map-area{height:90%;width:100%;}
+ #icon_holder{top:80%;right:3%}
+
+    body { height: 86%; margin: 0; padding: 0;  }
+	 header{
+	float:left;
+	width:75px;
+	padding:0px;height:50px;
+	background-image:url('logo4_smllst.png');
+	background-repeat: no-repeat;
+	margin-left:15px;
+	padding-bottom:0px;
+	margin-top:5px;
+	margin-bottom:0px;
+}
+	 #geolocation_alert{margin:15px;}
+    
+
+
+#genre_holder, #fav_holder, #spot_holder, #info-area{width:70%}
+
+ #findmusic{font-size:13px; padding:6px;}
+input{font-size:20px;}
+
+
+#search{width:47%; margin-bottom:0px;margin-top:30px;}
+
+.search{
+
+font-size:15px;
+float: left;
+background: #c53526;
+color: #fff;
+padding: 6px;
+padding-top:6px;
+padding-bottom:0px;
+margin-top:31px;
+cursor: pointer;border:1px solid #cecdcd;
+}
+.spacer{
+
+font-size:15px;
+float: left;
+padding: 0px;
+margin-top:2px;
+cursor: pointer;}
+
+ 
+
+	}
+
+
+
+@media screen and (max-height:359px)
+{
+#map-area{height:87.5%;width:100%;}
+ #icon_holder{top:65%;right:2%}
+   
+    body { height: 75%%; margin: 0; padding: 0;  }
+	 header{
+	width:75px; 
+	float:left;
+	padding:0px;
+	height:50px;
+	background-image:url('logo4_smllst.png');
+	background-repeat: no-repeat;
+	margin-left:15px;
+	padding-bottom:0px;
+	margin-top:5px
+}
+#genre_holder, #fav_holder, #spot_holder, #info-area{width:30%}
+h4, #spot_holder .spot_icon{font-family:'Indie Flower',  Arial;color:#c53526; margin-bottom:0px; padding-bottom:0px; font-size:1.5em; font-weight:bold; margin-top:10px;;}
+#spot_holder h4, #spot_holder .spot_icon{float:left}
+ #spot_holder .spot_icon{margin-top:20px;}
+
+   #geolocation_alert{margin:15px;}
+      #map-canvas { height: 100%; margin:15px; margin-top:0px; border:1px dashed #cecdcd }
+#geolocation_alert{margin:5px;margin-left:10px;}
+
+#search{width:51%; margin-bottom:7px;margin-top:15px;}
+#findmusic{font-size:13px; padding:5px;}
+.search{
+
+font-size:14px;
+float: left;
+background: #c53526;
+color: #fff;
+padding: 5px;
+padding-left:7px; padding-right:7px;
+padding-top:6px;
+padding-bottom:0px;
+margin-top:16px;
+cursor: pointer;border:1px solid #cecdcd;
+}
+
+
+.spacer{
+
+font-size:0px;
+float: left;
+padding: 0px;
+margin-top:0px;
+cursor: pointer;
+clear:both;
+margin-left:15px;
+margin-bottom:0px;}
+
+
+
+	}
+
+
+
+</style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6v2xcmgqqW9cjp72GQhXi1FIaw1tdixs&sensor=true">
+    </script>
+    <script type="text/javascript" src="/Scripts/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.history.js"></script>
+<script type="text/javascript">
+
+(function(a){(jQuery.browser=jQuery.browser||{}).mobile=/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))})(navigator.userAgent||navigator.vendor||window.opera);
+
+
+// For use within iPad developer UIWebView
+// Thanks to Andrew Hedges!
+  var map={}
+  map.markerArr=[];
+ map.map_range = [];
+  map.results ='87';
+  map.style='';
+  function historyLoad(hash) {
+
+  if(hash) 
+   	{
+
+
+
+
+		$('#spot_holder').html( '<div class="spot_icon"  aria-hidden="true" data-icon="T" ></div><div><h4><span style="color:#cecdcd">Your</span> GeoMix</h4></div> <div style="clear:both; margin-bottom:10px;"></div>');
+		 $('.addtospot').click(function(){
+
+		  }) 	
+
+			if(hash.match('style='))
+			{
+
+			map.hash = hash.split('&&')[0];
+			map.hash=hash+'+us';
+
+			map.hash= map.hash.replace(/_/g, ' ');
+			map.hash = map.hash.replace(/St. /g, 'Saint');
+			map.hash = map.hash.replace(/St /g,'Saint');
+			var styles=hash.split('&&')[1];
+
+
+
+			var stylesArr = styles.split('&');
+				for(var t=0; t<stylesArr.length-1; t++)
+				{
+					if(stylesArr.length>0)
+					{
+					var style= stylesArr[t];
+					style = style.replace(/ /g, '_');
+					//console.log($('#'+style.replace('style=','')));
+					$('#'+style.replace('style=','')).removeClass('off').addClass('on');
+					}
+					else
+					{
+					$('.genre').removeClass('on').addClass('off');
+					}
+				}
+
+			map.style = styles;
+			Hasher(map.hash);
+
+			}
+			else
+			{
+			map.hash=hash=hash+'+us';
+			map.hash= map.hash.replace(/_/g, ' ');
+			map.hash = map.hash.replace(/St. /g, 'Saint');
+			map.hash = map.hash.replace(/St /g,'Saint');
+			Hasher(map.hash);
+			}
+
+	}
+
+	else  if(hash=="")
+	{ 
+		if(navigator.geolocation)
+		{
+		navigator.geolocation.getCurrentPosition(handle_geolocation_query, handle_errors);  
+		}
+		else
+		{
+		$('#geolocation_alert').show();
+		$('#geolocation_alert').html('<p>Choose a City and State from the form below or enable geolocation on your device.</p>')
+
+		}
+	}
+
+
+}	
+   
+ $(document).ready(function() {
+        
+		$.history.init(historyLoad);
+
+
+		//$('a.inactive').click(function() {
+          
+			// return false;
+        //});
+    });
+
+
+
+
+	function Hasher(hash)
+	{
+	 //alert($(window).height());
+	  var qs_arr= hash.split('+')
+	 var qs1 = qs_arr[0].replace('#','').toUpperCase();
+	 var qs2 = qs_arr[1].replace('#','').split('&')[0];
+
+
+	map.lat_querystring='';
+	map.long_querystring='';
+
+	 if(hash.split('+').length==2)
+	 {
+
+	 var qs1 = qs_arr[0].replace('#','').toUpperCase().split('&')[0];
+
+
+	//alert(map.title);
+		if(qs1.length>2)
+		{
+		qs1 = qs1[0]+(qs1.slice(1, qs1.length).toLowerCase());
+		map.long_querystring = 'https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Long,State+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+State+%3D+%27'+qs1+'%27+ORDER%20BY+Long&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+		map.lat_querystring= 'https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Lat+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+State+%3D+%27'+qs1+'%27+ORDER%20BY+Lat&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+
+		}
+		else
+		{
+		map.long_querystring = 'https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Long,State+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+%27'+qs1+'%27+ORDER%20BY+Long&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+		map.lat_querystring= 'https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Lat+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+%27'+qs1+'%27+ORDER%20BY+Lat&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+		 }
+	}
+	 else
+	 {
+
+	 var tmpArr = []; 
+	 var qs1 = qs_arr[0].replace('#','');
+	  qs1=qs1.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	 var qs2 = qs_arr[1].replace('#','').toUpperCase().split('&')[0];
+
+		if(qs2.length>2)
+		{
+
+		qs2 =qs2[0]+(qs2.slice(1, qs2.length).toLowerCase())
+
+		 map.long_querystring='https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Long,State+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+State+%3D+%27'+qs2+'%27+AND+CityName%3D%27'+qs1+'%27+ORDER%20BY+Long&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+	 map.lat_querystring='https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Lat+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+State+%3D+%27'+qs2+'%27+AND+CityName%3D%27'+qs1+'%27+ORDER%20BY+Lat&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+		}
+		else
+		{
+		 map.long_querystring='https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Long,State+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+%27'+qs2+'%27+AND+CityName%3D%27'+qs1+'%27+ORDER%20BY+Long&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+	 map.lat_querystring='https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Lat+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+%27'+qs2+'%27+AND+CityName%3D%27'+qs1+'%27+ORDER%20BY+Lat&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+		}
+	 }
+	loadFusionTable()
+	map.map_range=[];
+}	
+
+	 function loadFusionTable()
+	 {
+	 $.getJSON(map.lat_querystring, function(response) {
+					if(response.rows==null )
+					{
+					$('#map-canvas').html('<p style="margin:15px;">Add either a city and state abbreviation (Make sure to add a comma between the city and the State Abbreviation) or just the state abbreviation to the form above. Please check your spelling if you continue to receive this message.  For now, this project is only usable to find artist in the United States.</p>'); 
+
+					}
+					else
+					{
+						map.lat_range =response.rows[0]+':'+response.rows[(response.rows.length-1)]; 
+						combineCalls(map.lat_range);
+
+
+							 $.getJSON(map.long_querystring, function(response) {
+
+							map.long_range =response.rows[0][0]+':'+response.rows[(response.rows.length-1)][0]; 
+							map.state = response.rows[0][1]
+							//alert(map.state);
+
+							combineCalls(map.long_range)					
+							loadKeywords();
+							})
+
+					}		
+
+						})
+
+
+
+	 }
+	 function loadKeywords()
+	 {
+
+	 map.keywords=[]
+	 wiki_hash_combine=[];
+		var wiki_hash = map.hash.replace('+us','');
+
+		wiki_hash_split = wiki_hash.split(' ');
+
+		for(var i=0; i<wiki_hash_split.length; i++)
+		{
+			wiki_hash_combine.push(wiki_hash_split[i][0].toUpperCase()+wiki_hash_split[i].toLowerCase().slice(1, (wiki_hash_split[i].length)))
+		}
+		wiki_hash = wiki_hash_combine.toString().replace(',','_');
+
+
+		var wiki_hash_arr= wiki_hash.split('+');
+
+		if(wiki_hash_arr.length>1)
+		{
+			if(map.state=='District of Columbia')
+			{
+			var wiki_hash_1 = 'District_of_Columbia';
+			}
+			else
+			{
+			var wiki_hash_1=wiki_hash_arr[0]+'_('+map.state+')'
+
+			}
+
+		}
+		else if(wiki_hash_arr.length==1)
+			{
+
+				if(map.state =="Washington")
+				{
+				var wiki_hash_1="Washington_(state)";
+				}
+				else
+				{
+				var wiki_hash_1 = map.state;
+				}
+
+			}
+		var wiki_hash_2 = wiki_hash_arr[0];
+
+
+		var playListURL = 'http://en.wikivoyage.org/w/api.php?format=json&action=query&titles='+wiki_hash_1+'&redirects&prop=revisions&rvprop=content&callback=?';
+			console.log(playListURL);
+			$.getJSON(playListURL ,function(data) {
+
+
+				$.each(data.query.pages, function(i, item) {
+
+				if(item.pageid==null||item.revisions[0]['*'].match('There is more than one place called'))
+				{
+
+
+
+
+
+					var playListURL2 = 'http://en.wikivoyage.org/w/api.php?format=json&action=query&titles='+wiki_hash_2+'&redirects&prop=revisions&rvprop=content&callback=?';
+					console.log(playListURL2);
+					$.getJSON(playListURL2 ,function(data) {
+
+
+					$.each(data.query.pages, function(i, item) {
+
+					map.wikibody=item.revisions[0]['*'];
+					/////////for states////////////
+					if(window.location.hash.split('+').length==1)
+					{
+
+					console.log('1')
+					map.wikibody_see = map.wikibody.split('See')[1];
+					map.wikibody_see =map.wikibody_see.split('Do')[0];
+
+					map.wikibody_see=map.wikibody_see.replace(/{{see/g,'');
+					map.wikibody_see = map.wikibody_see.replace(/{{do/g,'');
+					map.ast = map.wikibody_see.split('*');
+						for (var x=1; x<map.ast.length; x=x+2)
+						{
+							if(map.ast[x].match('name='))
+							{
+								map.astItem = map.ast[x].split('name=')[1].split('| alt')[0];
+								map.keywords.push(map.astItem);
+							}
+						}
+						if(!map.ast.toString().match('name='))
+						{
+						map.wikiStr = map.ast.toString();
+						map.wikiArr = map.wikiStr.split('[[');
+							for(var x=0; x<map.wikiArr.length; x++)
+							{
+								if(!map.wikiArr[x].match('thumb'))
+								{	
+								map.keywords.push(map.wikiArr[x])
+								}
+							}
+						}
+					}
+					else
+					////////////////for cities////////////
+					{
+					console.log('2');
+
+					map.wikibody_see = map.wikibody.split('==See')[1].split('==Do')[0];
+
+					map.kw1 = map.wikibody_see.split("'''")
+							for(var x=1; x<map.kw1.length; x=x+2)
+							{
+							map.keywords.push(map.kw1[x].split("'''")[0]);
+							}
+
+					if(map.wikibody_see.match('name='))
+						{
+						map.wikibody_see=map.wikibody_see.replace(/{{see/g,'');
+						map.wikibody_see = map.wikibody_see.replace(/{{do/g,'');
+						map.ast = map.wikibody_see.split('*');
+							for (var x=1; x<map.ast.length; x=x+2)
+							{
+
+									map.astItem = map.ast[x].split('name=')[1].split('| alt')[0];
+									map.keywords.push(map.astItem);
+							}
+						}
+
+
+
+
+
+					}
+
+
+						})
+
+					})
+
+				}
+				else
+				{ 
+					map.wikibody=item.revisions[0]['*'];
+					map.keywordsstr='';
+					///for states only///
+					if(window.location.hash.split('+').length==1)
+					{
+					console.log('3');
+					map.wikibody_see = map.wikibody.split('See')[1].split('Go Next')[0];
+						map.ast = map.wikibody_see.split('*');
+						for(var y=1; y<map.ast.length; y++)
+						{
+							if(!map.ast[y].match('name='))
+							{
+							map.ast_short = map.ast[y].split(',')
+								console.log(map.ast_short		);
+								for(var yy=0; yy<map.ast_short.length;yy++)
+								{
+								console.log(map.ast_short[yy]);
+								map.keywordsstr  += (map.ast[y].split(',')[yy].split(' in')[0].match(/[A-Z][a-z]*/g))+ ':';
+								map.keywordsstr = map.keywordsstr.replace(/null/g,'');
+								}
+								
+							}
+						}
+						map.keywords= map.keywordsstr.replace(/,/g, ' ')
+						for(var r=0; r<map.keywordsarr.length; r++)
+						{
+							console.log(map.keywordsarr[r].toString());
+							map.keywords.push(map.keywordsarr[r].toString())
+						}
+						if(map.wikibody_see.match('name='))
+						{
+						console.log('see3')
+						map.wikibody_see=map.wikibody_see.replace(/{{see/g,'');
+						map.wikibody_see = map.wikibody_see.replace(/{{do/g,'');
+
+							for (var x=1; x<map.ast.length; x=x+2)
+							{
+
+									map.astItem = map.ast[x].split('name=')[1].split('| alt')[0];
+									map.keywords.push(map.astItem);
+								}
+							}
+						else
+						{
+						map.wikiStr = map.ast.toString();
+						map.wikiArr = map.wikiStr.split("'''");
+							for(var x=0; x<map.wikiArr.length; x++)
+							{
+								if(!map.wikiArr[x].match('thumb'))
+								{	
+								map.keywords.push(map.wikiArr[x])
+								}
+							}
+						}
+					}
+					else
+					{
+					///for cities////
+
+					console.log('4');
+					map.wikibody_see = map.wikibody.split('See==')[1].split('==Do')[0];
+						/*if(map.wikibody_see.match('name='))
+						{
+						map.kw1 = map.wikibody_see.split('name=');
+							for(var y=1; y<map.kw1.length; y++)
+							{
+								map.keywords.push(map.kw1[y].split('|')[0]);
+							}
+						
+						}
+						else
+						{*/
+						map.kw1 = map.wikibody_see.split("'''");
+							for(var x=1; x<map.kw1.length; x=x+2)
+							{
+							map.keywords.push(map.kw1[x]);
+							}
+						if(map.wikibody_see.match('name='))
+						{
+						map.wikibody_see=map.wikibody_see.replace(/{{see/g,'');
+						map.wikibody_see = map.wikibody_see.replace(/{{do/g,'');
+						map.ast = map.wikibody_see.split('*');
+							for (var x=1; x<map.ast.length; x=x+2)
+							{
+
+									map.astItem = map.ast[x].split('name=')[1].split('| alt')[0];
+									map.keywords.push(map.astItem);
+							}
+						}	
+						//}
+					}
+
+
+				}
+
+
+				})
+			});
+
+	 }
+
+	 function combineCalls(latorlong)
+	 {
+
+	 map.map_range.push(latorlong);
+	 if(map.map_range.length==2)
+	 {
+
+	 loadJSON(map.map_range);
+	 }
+	 }
+
+	  function loadJSON(arr)
+	  {
+
+	 //alert('loading');
+	 var lat1 = parseFloat(arr[0].split(':')[0]);
+	 var lat2 = parseFloat(arr[0].split(':')[1]);
+	 map.lat_avg = (lat1+lat2)/2;
+	 var long1 = parseFloat(arr[1].split(':')[0]);
+	 var long2 = parseFloat(arr[1].split(':')[1]);
+	 map.long_avg = (long1+long2)/2;
+
+	  var lat_min = parseFloat((arr.toString().split(',')[0].split(':')[0])-.15)
+	  var lat_max=parseFloat((arr.toString().split(',')[0].split(':')[1])+.15);
+	  var long_min = parseFloat((arr.toString().split(',')[1].split(':')[0])-.15)
+	  var long_max=parseFloat((arr.toString().split(',')[1].split(':')[1])+.15);
+
+	 //console.log(long_min);
+	 //console.log(long_max);
+
+	    $.getJSON("http://developer.echonest.com/api/v4/song/search?api_key=3KFREGLKBDFLWSIEC&format=json&"+map.style+"results="+map.results+"&min_latitude="+lat_min+"&max_latitude="+lat_max+"&min_longitude="+long_min+"&max_longitude="+long_max+"&bucket=artist_location&bucket=id:spotify-WW&bucket=tracks&limit=true&rank_type=relevance&artist_min_familiarity=.5", 							
+		function(response) {
+					if(response==null||response.response.songs.length==0)
+					{
+					$('#map-canvas').html('<p style="margin:15px;">Add either a city and state abbreviation (Make sure to add a comma between the city and the State Abbreviation) or just the state abbreviation to the form above. Please check your spelling if you continue to receive this message.  For now, this project is only usable to find artist in the United States.</p>'); 
+
+					}
+					else
+					{
+					map.markers = []
+					map.title=[];
+					map.artist=[];
+					map.spot_Arr=[];
+					map.songs_str='';
+					map.p=[];
+
+					map.info=[];
+					map.lat_long_str="";	
+					map.containArr=[];
+					for(i=0; i<response.response.songs.length; i++)
+					{
+					///////////////////////Start Here//////////////////////
+
+
+						if(!map.songs_str.match(response.response.songs[i].title.replace(/\+/g,'&#43')))
+						{
+						map.songs_str+=response.response.songs[i].title+':'+i;
+						map.lat= response.response.songs[i].artist_location.latitude;
+						map.long= response.response.songs[i].artist_location.longitude;
+						map.city = response.response.songs[i].artist_location.location.split(',')[0]+','+ response.response.songs[i].artist_location.location.split(',')[1];
+						map.spot_str = response.response.songs[i].tracks[0].foreign_id;
+						map.spot = map.spot_str.split(':')[2]
+						map.spot_Arr.push(map.spot_str.split(':')[2]);
+
+
+							for(var n=0; n<localStorage.length; n++)
+							{
+							var spot_link = localStorage.getItem('key_song'+n).split('$$')[1].split('**')[0].replace(/"}/g,''); 
+								if(spot_link==map.spot)
+								{
+								map.info.push(map.city+'$$'+ map.lat+'&&'+ map.long+'%%<p class="info" id="infobox_pinfo'+i+'">'+response.response.songs[i].title+'<br/>by '+response.response.songs[i].artist_name+'</p><div class="border"><a href="http://open.spotify.com/track/'+map.spot+'" target="_blank"><div class="spot_link" style="float:left;font-size:20px;text-decoration:none; width:30px;overflow:hidden;" aria-hidden="true" data-icon="c" id="infobox_spot_link'+i+'"></div></a><a><div class="spot_link favorite favorite_on" id="infobox_favorite'+i+'" title="'+map.spot+'" onclick="addFavorite($(this).attr(\'id\'),$(this).attr(\'title\'))" style="font-size:20px;float:left;text-decoration:none; width:30px;overflow:hidden;" aria-hidden="true" data-icon="t"></div></a><a ><div onclick="addInfo($(this).attr(\'id\'))," class="spot_link information" id="infobox_info'+i+'" style="float:left;font-size:20px;text-decoration:none; width:30px;overflow:hidden;" aria-hidden="true" data-icon="*"></div></a><div style="clear:both; border-bottom: 1px dotted #cecdcd;margin-top:5px;"></div></div>>');
+								}
+							}	
+								if(!map.info.toString().match(map.spot))
+								{
+								map.info.push(map.city+'$$'+ map.lat+'&&'+ map.long+'%%<p class="info" id="infobox_pinfo'+i+'">'+response.response.songs[i].title+'<br/>by '+response.response.songs[i].artist_name+'</p><a href="http://open.spotify.com/track/'+map.spot+'" target="_blank"><div class="spot_link" style="float:left;font-size:20px;text-decoration:none; width:30px;overflow:hidden;" aria-hidden="true" data-icon="c" id="infobox_spot_link'+i+'"></div></a><a><div class="spot_link favorite" id="infobox_favorite'+i+'" title="'+map.spot+'" onclick="addFavorite($(this).attr(\'id\'),$(this).attr(\'title\'))" style="font-size:20px;float:left;text-decoration:none; width:30px;overflow:hidden;" aria-hidden="true" data-icon="u"></div></a><a ><div onclick="addInfo($(this).attr(\'id\'))," class="spot_link information" id="infobox_info'+i+'" style="float:left;font-size:20px;text-decoration:none; width:30px;overflow:hidden;" aria-hidden="true" data-icon="*"></div></a><div style="clear:both; border-bottom: 1px dotted #cecdcd; margin-bottom:5px;margin-top:5px;"></div>');
+								}
+
+							map.p.push('<p class="info" id="pinfo'+i+'">'+response.response.songs[i].title+'<br/>by '+response.response.songs[i].artist_name+'</p><a href="http://open.spotify.com/track/'+map.spot+'" target="_blank"><div class="spot_link" id="spot'+i+'" style="float:left;font-size:25px;text-decoration:none; width:35px;overflow:hidden;" aria-hidden="true" data-icon="c"></div></a><a><div id="favorite'+i+'" class="spot_link favorite" title="'+map.spot+'" style="font-size:25px;float:left;text-decoration:none; width:35px;overflow:hidden;" aria-hidden="true" data-icon="u" onclick="addFavorite($(this).attr(\'id\'),$(this).attr(\'title\'))"></div></a><a><div onclick=addInfo($(this).attr(\'id\')); id="info'+i+'" class="spot_link information" style="float:left;font-size:25px;text-decoration:none; width:35px;overflow:hidden;" aria-hidden="true" data-icon="*"></div></a><div style="clear:both; border-bottom: 1px dotted #cecdcd; margin-bottom:5px;margin-top:5px;"></div>')
+							}
+
+					}	
+					if(jQuery.browser.mobile==false && !navigator.userAgent.match('iPad'))
+					{
+					$('#spot_holder').append('<iframe theme="light" view="coverart" style="margin-left:-15px;" src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:'+map.spot_Arr.toString()+'" frameborder="0" allowtransparency="true" height="300" width="300"></iframe>'+map.p.toString().replace(/<\/div>,/g,'</div>'));
+					$('#genre_holder, #fav_holder, #spot_holder, #info-area').css({'width': ($('iframe').width())})
+					}
+					else
+					{
+					$('#spot_holder').append(map.p.toString().replace(/<\/div>,/g,'</div>'))
+
+					}
+					map.info.sort()
+
+					 for(var r=0; r<map.info.length; r++)
+					{
+						//console.log(map.info[r]);
+						if(!map.lat_long_str.match(map.info[r].split('$$')[1].split('&&')[0]+map.info[r].split('&&')[1].split('%%')[0]))
+						{
+
+						map.lat_long_str += map.info[r].split('$$')[1].split('&&')[0]+map.info[r].split('&&')[1].split('%%')[0]+':'
+						map.containArr.push( '@@'+map.info[r])				
+						}
+						else
+						{
+						map.containArr.push( map.info[r].split('%%')[1]);
+						}	
+					}
+					var arrStr = map.containArr.toString()	
+			//console.log(arrStr)	
+					var arrStrArr = arrStr.split('@@');
+					 for(var x=1; x<arrStrArr.length; x++)
+					 {
+
+					map.markers.push(arrStrArr[x].split('&&')[0].split('$$')[1]+':'+arrStrArr[x].split('%%')[0].split('&&')[1])
+					map.title.push('<p><b>'+arrStrArr[x].split('$$')[0].replace(',undefined','')+'</b></p>'+arrStrArr[x].split('%%')[1].replace(/<\/p>,/g,'</p>'))  
+					}
+
+
+		 initialize(map.markers, map.title, map.lat_avg, map.long_avg)	
+		 }
+		 })
+
+	  }    
+
+function initialize(arr, songtitle, str1, str2) {
+ if(map.hash.split('+').length==2)
+ {
+
+  	map.mapOptions = {
+    zoom: 6,
+	center: new google.maps.LatLng(str1, str2),
+    
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+
+  	}
+}
+else
+{
+	map.mapOptions = {
+		zoom: 10,
+		center: new google.maps.LatLng(str1, str2),
+
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	}	
+}	
+	   map.map = new google.maps.Map(document.getElementById("map-canvas"),
+									map.mapOptions);
+
+	map.image = "genre_icons/marker_sm.png"
+	 pushLatLong(map, arr, songtitle); 
+  	
+}
+function createMarker(pos, songtitle, index) {
+
+   		
+
+		//console.log(pos);
+
+	    map.marker = new google.maps.Marker({       
+        position: pos, 
+        map: map.map,  // google.maps.Map 
+        title:songtitle[index].replace(/<\/div>,/g,'</div>'),
+		icon:map.image
+		});	
+	//$('#spot_holder').append(songtitle[index].replace(/,/g,''));		
+
+   createInfo(map.map, map.marker, map.marker.title);
+	}
+
+function createInfo(map, marker, title, index)
+
+{
+google.maps.event.addListener(marker,'click',function(){
+	map.infowindow = new google.maps.InfoWindow({content: title});
+	map.infowindow.open(map,marker);
+
+
+})
+
+
+}
+
+
+
+function pushLatLong(map, arr, songtitle) {
+
+			for(var n=0; n<arr.length;n++)
+			{
+
+			var myLatLng = new google.maps.LatLng(arr[n].split(':')[0],arr[n].split(':')[1]);
+			createMarker(myLatLng,songtitle, n);
+
+			if(n==arr.length-1)
+			{
+			runLS();
+			addLS();
+
+			}
+
+
+			}
+
+
+
+		 }
+		 function handle_geolocation_query(position){  
+            map.currentLat= (position.coords.latitude+.05);
+             map.currentLong= (position.coords.longitude+.05);
+			 map.currentLatRange = (map.currentLat-.05);
+			 map.currentLongRange =(map.currentLong-.05) 
+        	var json="https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+CityName%2C+StateAB+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+Lat+<=+"+map.currentLat+"+AND+Lat>="+map.currentLatRange+"+AND+Long<="+map.currentLong+"+AND+Long>="+map.currentLongRange+"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0";
+			 $.getJSON(json, function(response) {
+						if(response.rows==null)
+						{
+						$('#map-canvas').html('<p style="margin:15px;">Add city and state (Make sure to add a comma between the city and state) or just the state to the form above. Please check your spelling if you continue to receive this message.  For now, this project is only usable to find artist in the United States.</p>'); 
+
+						};
+						map.hash = response.rows[0].toString().toLowerCase().replace(",",'+');
+						map.hash=map.hash.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+						window.location.hash = map.hash;
+
+
+						})
+
+					}
+function handle_errors(error)
+    {
+        switch(error.code)
+        {
+            case error.PERMISSION_DENIED: $('#geolocation_alert').html('<p>Choose a City and State from the form below or enable geolocation on your device.</p>')
+            break;
+ 
+            case error.POSITION_UNAVAILABLE: $('#geolocation_alert').html("<p>We could not detect current position</p>");
+            break;
+ 
+            case error.TIMEOUT: $('#geolocation_alert').html("<p> There was a server timeout.");
+            break;
+ 
+            default: $('#geolocation_alert').html("There was an unknown error.");
+            break;
+        }
+    }		
+ 		  
+function addInfo(id)
+{
+	if(id.match('infobox_'))
+		{
+		id = id.replace('infobox_','');
+		id = id.replace('info','');
+		id = $('#infobox_pinfo'+id).html();
+		}
+	else
+		{
+		id = id.replace('info','');
+		id = $('#pinfo'+id).html();
+
+		}	
+	var artist = id.split('<br>by ')[1];
+	console.log('info: '+artist);	
+}
+
+
+
+function addFavorite(id, spot_id)
+{
+	var addhash='';
+	if(id.match('infobox_'))
+	{
+		var id2 = id.replace('infobox_','');
+		if($('#'+id).attr('data-icon')=='u')
+		{
+			$('#'+id).attr('data-icon','t')
+			$('#'+id).addClass('favorite_on').removeClass('favorite_off');
+			$('#'+id2).attr('data-icon','t')
+			$('#'+id2).addClass('favorite_on').removeClass('favorite_off');
+
+		}
+		else
+		{
+			$('#'+id).attr('data-icon','u')
+			$('#'+id).addClass('favorite_off').removeClass('favorite_on');
+			$('#'+id2).attr('data-icon','u')
+			$('#'+id2).addClass('favorite_off').removeClass('favorite_on');
+
+		}
+	}
+	else
+	{
+		var id2 = 'infobox_'+id;
+		if($('#'+id).attr('data-icon')=='u')
+		{
+			$('#'+id).attr('data-icon','t')
+			$('#'+id).addClass('favorite_on').removeClass('favorite_off');
+			$('#'+id2).attr('data-icon','t')
+			$('#'+id2).addClass('favorite_on').removeClass('favorite_off');
+
+		}
+		else
+		{
+			$('#'+id).attr('data-icon','u')
+			$('#'+id).addClass('favorite_off').removeClass('favorite_on');
+			$('#'+id2).attr('data-icon','u')
+			$('#'+id2).addClass('favorite_off').removeClass('favorite_on');
+
+		}	
+
+	}	
+	runClickCheck(id,spot_id)	
+
+}
+	/////////////////////Sample code for adding items and removing items to local storage///////////////////////////////
+	//////////////////////////Add Favorite songs and Favorite Artists//////////////////////////////////////
+	//////Add Songtitle, Artist and song id to local storage/////////
+
+	  function runClickCheck(id, spot_id)
+   {
+
+		var LStoString=''
+		var LStoStringSplit = ''
+
+		var songhtml='';
+		if(id.match('infobox'))
+		{
+		id=id.replace('infobox_','');
+		}
+		if(id.match('_LS'))
+		{
+		id=id.replace('_LS','');
+		}
+		idr=id.replace('favorite','');
+		var idhtml= $('#pinfo'+idr).html()+'$$'+spot_id+'**'+idr+'%%';
+		var idsplit = idhtml.split('<br>by ');
+		var song = idsplit[0];
+		var artist = idsplit[1];
+		if($('#'+id).attr('class').match('favorite_on'))
+		{
+			LStoString=JSON.stringify(localStorage);
+			LStoStringSplit = LStoString.split(':"');
+			var i=localStorage.length;
+			songhtml +=idhtml;
+			localStorage.setItem('key_song'+(localStorage.length), idhtml);
+		}
+		else 
+		{
+			LStoString=JSON.stringify(localStorage);
+
+			LStoStringSplit = LStoString.split(':"');
+			var LSArr=[]
+			//alert(LStoStringSplit +':'+ idhtml);
+			localStorage.removeItem('key_song'+idr);
+			localStorage.clear();
+
+			for(var g=1; g<LStoStringSplit.length; g++)
+			{
+
+				var spotid = LStoStringSplit[g].split('","')[0].split('$$')[1].split('**')[0];
+				var idhtmlsplit = idhtml.split('$$')[1].split('**')[0];
+
+				if(idhtmlsplit!=spotid)
+				{
+
+				LSArr.push(LStoStringSplit[g].split('%%')[0].split(',')[0])
+				}
+			}
+			for (var t=0; t<LSArr.length; t++)
+			{
+
+			localStorage.setItem('key_song'+t, LSArr[t]);
+			}
+
+		}
+		addLS();
+
+   }
+
+
+	function runLS()
+	{
+		var favorites = $('.favorite')
+		for(var u=0; u<favorites.length; u++)
+		{	
+			var fav_title=favorites[u].title;
+
+			for(var n=0; n<localStorage.length; n++)
+			{
+
+				var spot_link = localStorage.getItem('key_song'+n).split('$$')[1].split('**')[0].replace(/"}/g,''); 
+				var number = localStorage.getItem('key_song'+n).split('$$')[1].split('**')[1].replace(/"}/g,'').replace('%%','');
+
+				if(fav_title==spot_link)
+				{
+					var fav=($("div[title="+spot_link+"]").attr('id'))
+
+					$('#'+fav).addClass('favorite_on').removeClass('favorite_off');
+					$('#'+fav).attr('data-icon','t');
+
+				}	
+			}
+		}
+	}
+	function addLS()
+	{
+		var lsspot_arr=[];
+		$('#fav_holder').html('');
+		$('#fav_holder').append('<div class="spot_icon"  aria-hidden="true" data-icon="t" ></div><div><h4><span style="color:#cecdcd"></span> Starred Songs</h4></div> <div style="clear:both; margin-bottom:10px;"></div>')
+		for(var i=0; i<localStorage.length; i++)
+		{
+			lsspot_arr.push(localStorage.getItem('key_song'+i).split('$$')[1].split('**')[0])
+			if(i==(localStorage.length-1))
+			{
+				if(jQuery.browser.mobile==false && !navigator.userAgent.match('iPad'))
+					{
+					$('#fav_holder').append('<iframe theme="light" view="coverart" style="margin-left:-15px;" src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:'+lsspot_arr.toString()+'" frameborder="0" allowtransparency="true" height="300" width="300"></iframe>')
+					}
+				}	
+		}	
+		for(var i=0; i<localStorage.length; i++)
+		{	
+			$('#fav_holder'). append('<p class="info">'+localStorage.getItem('key_song'+i).split('$$')[0]+'</p><a href="http://open.spotify.com/track/'+localStorage.getItem('key_song'+i).split('$$')[1].split('**')[0]+'" target="_blank"><div class="spot_link" id="spot_LS'+i+'" style="float:left;font-size:25px;text-decoration:none; width:35px;overflow:hidden;" aria-hidden="true" data-icon="c"></div></a><a><div id="favorite_LS'+i+'" class="spot_link favorite favorite_on" title="'+localStorage.getItem('key_song'+i).split('$$')[1].split('**')[0]+'" style="font-size:25px;float:left;text-decoration:none; width:35px;overflow:hidden;" aria-hidden="true" data-icon="t" onclick="addFavorite($(this).attr(\'id\'),$(this).attr(\'title\'))"></div></a><a><div onclick=addInfo($(this).attr(\'id\')); id="info_LS'+i+'" class="spot_link information" style="float:left;font-size:25px;text-decoration:none; width:35px;overflow:hidden;" aria-hidden="true" data-icon="*"></div></a><div style="clear:both; border-bottom:1px dotted #cecdcd; margin-bottom:5px;margin-top:5px;"></div>');	
+		}
+	}
+  $('#fav_holder').append('<br><br>');      
+        </script>
+	 <title>Music Where You Are</title></head>
+	  <body  >	
+      <div id="icon_holder">
+      <div class="open_div" aria-hidden="true" data-icon="W"></div>
+      <div class="open_div_spot" aria-hidden="true" data-icon="T"></div>
+      <div class="open_div_fav" aria-hidden="true" data-icon="t"></div>
+      </div>
+      <div id="genre_holder">
+      		<div style="clear:both; margin-bottom:10px;"></div>
+
+        <div class="genre avant_garde off hider" id="avant_garde" ></div><div class="label">Avant Garde</div>
+           <div style="clear:both"></div>
+           <div class="genre blues off hider" id="blues"></div><div class="label">Blues</div>
+           <div style="clear:both"></div>
+           <div class="genre classic_rock off hider" id="classic_rock" ></div><div class="label">Classic Rock</div>
+           <div style="clear:both"></div>
+           <div class="genre classical off hider" id="classical" ></div><div class="label">Classical</div>
+           <div style="clear:both"></div>
+           <div class="genre mic off hider" id="comedy"></div><div class="label">Comedy</div>
+           <div style="clear:both"></div>
+           <div class="genre country off hider" id="country" ></div><div class="label">Country/Alt Country</div>
+           <div style="clear:both"></div>
+           <div class="genre drama off hider" id="drama" ></div><div class="label">Drama</div>
+           <div style="clear:both"></div>
+           <div class="genre electronic off hider" id="electronic"></div><div class="label">Electronic</div>
+           <div style="clear:both"></div>
+           <div class="genre folk off hider" id="folk" ></div><div class="label">Folk</div>
+           <div style="clear:both"></div>
+           <div class="genre hip-hop off hider" id="hip_hop"></div><div class="label">Hip Hop</div>
+           <div style="clear:both"></div>
+           <div class="genre holiday off hider" id="holiday"></div><div class="label">Holiday</div>
+           <div style="clear:both"></div>
+           <div class="genre indie off hider" id="indie_rock" ></div><div class="label">Indie</div>
+           <div style="clear:both"></div>
+           <div class="genre jazz off hider" id="jazz"></div><div class="label">Jazz</div>
+           <div style="clear:both"></div>
+           <div class="genre kids off hider" id="children_music"></div><div class="label">Children's Music</div>
+           <div style="clear:both"></div>
+           <div class="genre latin off hider" id="latin"></div><div class="label">Latin</div>
+           <div style="clear:both"></div>
+           <div class="genre new_age off hider" id="new_age" ></div><div class="label">New Age</div>
+           <div style="clear:both"></div>
+           <div class="genre rb off hider" id="motown"></div><div class="label">Motown</div>
+           <div style="clear:both"></div>
+           <div class="genre pop off hider" id="pop" ></div><div class="label">Pop</div>
+           <div style="clear:both"></div>
+           <div class="genre rock off hider" id="rock"></div><div class="label">Rock</div>
+           <div style="clear:both"></div>
+           <div class="genre soft_rock off hider" id="soft_rock"></div><div class="label">Soft Rock</div>
+           <div style="clear:both"></div>
+           <div class="genre world off hider" id="world" ></div><div class="label">World</div>
+           <div style="clear:both"></div>
+          </div>
+          <div id="spot_holder">
+             
+          </div>
+          <div id="fav_holder">
+          </div>
+          <div id="info-area"></div> 
+           
+           <script>
+           $('.genre').click(function(){
+            //alert('clicked');
+            var id =$(this).attr('id');
+            //alert(id);
+            var hashy='';
+            var arr=[];
+            var genres = $('.genre');
+            
+            if($('#'+id).attr('class').match(' on'))
+            {
+
+            $(this).removeClass('on').addClass('off');	
+            for(var x=0; x<$('.genre').length; x++)
+                {
+                    
+					var genre = $(genres[x]);
+              		
+					if(genre.hasClass('on'))
+                    {
+
+                    arr.push('&style='+genre.attr('id').replace('_',' ')); 
+                     
+                    }
+                }
+            }
+            else if(!$('#'+id).attr('class').match(' on'))
+            {
+            $(this).removeClass('off').addClass('on');
+            for(var x=0; x<$('.genre').length; x++)
+                {
+                    var genre = $(genres[x]);
+                    
+                    if(genre.hasClass('on'))
+                    {
+                    arr.push('&style='+genre.attr('id').replace('_',' ')); 
+                     
+                    }
+                }	
+            }
+            
+            
+            map.style='';
+			hashy = window.location.hash.split('&')[0] 
+            map.style=arr.toString().replace(/,/g,'')+'&';
+
+            hashy = hashy + '&'+map.style;
+			runLS();
+			//alert(window.location.hash);
+        //console.log(hashy);   
+		    //Hasher(hashy);
+
+			window.location.hash=hashy;
+        			})   
+        $('.open_div').click(function(){
+			$('#genre_holder').animate({width: 'toggle'});
+			$('.hider').fadeIn('1200');
+				if($('.open_div').attr('data-icon')=='W')
+				{
+				$('.open_div').attr('data-icon','$')
+				$('.open_div_spot').css({'font-size':'30px'})
+
+				$('.open_div_spot').attr('data-icon','T')
+				$('.open_div_spot').css({'font-size':'30px'})
+
+				$('.open_div_fav').attr('data-icon','t')
+				$('.open_div_fav').css({'font-size':'28px'})
+				$('#spot_holder').hide();
+				$('#fav_holder').hide();
+				}
+				else
+				{
+				$('.open_div').attr('data-icon','W')
+				$('.open_div').css({'font-size':'28px'})
+				}
+
+       		
+	    })
+
+		$('.open_div_spot').click(function(){
+			$('#spot_holder').animate({width: 'toggle'});
+			$('.hider').fadeOut('1200');
+
+			if($('.open_div_spot').attr('data-icon')=='T')
+				{
+				$('.open_div_spot').attr('data-icon','$')
+				$('.open_div_spot').css({'font-size':'30px'})
+
+				$('.open_div_fav').attr('data-icon','t')
+				$('.open_div_fav').css({'font-size':'28px'})
+
+				$('.open_div').attr('data-icon','W')
+				$('.open_div').css({'font-size':'28px'})
+				$('#genre_holder').hide();
+				$('#fav_holder').hide();
+				}
+				else
+				{
+				$('.open_div_spot').attr('data-icon','T')
+				$('.open_div_spot').css({'font-size':'33px'})
+
+				}
+           })
+		$('.open_div_fav').click(function(){
+			$('#fav_holder').animate({width: 'toggle'});
+			$('.hider').fadeOut('1200');
+
+			if($('.open_div_fav').attr('data-icon')=='t')
+				{
+				$('.open_div_fav').attr('data-icon','$')
+				$('.open_div_fav').css({'font-size':'30px'})
+
+				$('.open_div').attr('data-icon','W')
+				$('.open_div').css({'font-size':'28px'})
+				$('#genre_holder').hide();
+				$('#spot_holder').hide();
+
+				$('.open_div_spot').attr('data-icon','T')
+				$('.open_div_spot').css({'font-size':'33px'})
+				}
+				else
+				{
+				$('.open_div_fav').attr('data-icon','t')
+				$('.open_div_fav').css({'font-size':'28px'})
+
+				}
+           })
+
+           </script>
+           
+    
+    <!--<div class="genre" aria-hidden="true" data-icon="C"></div>
+	<div class="genre" aria-hidden="true" data-icon="D"></div>
+	<div class="genre" aria-hidden="true" data-icon="M"></div>-->
+
+      
+      <div id="contact"><ul><li><a href="mailto:robert.ostheimer@cityblinking.com"><img border="none" src="genre_icons/mail.svg" alt="email"/></a></li> <li><a href="https://twitter.com/robostheimer" target="_blank"><img border="none" src="genre_icons/twitter.svg" alt="email"/></a></li></ul></div>
+      
+       <header>
+    
+    <!-- <section><p>Discover Music &nbsp;&nbsp;&nbsp;where you are... &nbsp;&nbsp;&nbsp;Where you are going... &nbsp;&nbsp;&nbsp;Where you want to be.</p> </section>
+      -->
+      </header>
+    <div id="whereyouat">
+    <form id="search" name="spot" method="post" >
+	<input type="text"  name="find music" id="findmusic" placeholder="City, ST or ST"  class="text"  onKeyDown="if(event.keyCode==13){var hasher = $('#findmusic').val(); hasher = hasher.replace(/ ,/g, '_');hasher = hasher.replace(/, /g, '+');hasher=hasher.replace(/,/g,'+');hasher=hasher.replace(/, /g,'+');hasher = hasher.replace(/    /g, '_');hasher = hasher.replace(/   /g, '_');hasher = hasher.replace(/  /g, '_');hasher = hasher.replace (/ /g, '_');window.location.hash='#'+hasher};">
+</form>
+
+<div class="search"  aria-hidden="true" data-icon="e" onClick="var hasher = $('#findmusic').val(); hasher = hasher.replace(/ ,/g, '_');hasher = hasher.replace(/, /g, '+');hasher=hasher.replace(/,/g,'+');hasher=hasher.replace(/, /g,'+');hasher = hasher.replace(/    /g, '_');hasher = hasher.replace(/   /g, '_');hasher = hasher.replace(/  /g, '_');hasher = hasher.replace (/ /g, '_');window.location.hash='#'+hasher"></div>
+
+
+
+
+
+</div>
+
+    <div style="clear:both"></div>
+   
+    <!-- <ul id="chooser">
+    
+    <li class="musicwhereyouare active" id="music_where" ></li>
+<li class="geomix inactive" id="geomix" ></li>
+<li class="folowwme inactive" id="follow_me" ></li>
+  -->
+    </ul>
+      <div id="geolocation_alert"></div>
+    <div id="map-area">
+    <div id="map-canvas"><div style="width:100px; margin:auto"><img src="loading.gif" alt="loading"/></div></div>
+    </div>
+    <div style="clear:both"></div>
+
+<div class="attribute">Note: This product uses a SPOTIFY API but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group. <br/>Powered By:
+<img src="genre_icons/echonest.svg" alt="echonest"/> <img src="genre_icons/wikimedia.png" alt="wikimedia"/> <img src="genre_icons/spotify_green.svg" alt="spotify"/></div>
+
+      </body>
+</html>

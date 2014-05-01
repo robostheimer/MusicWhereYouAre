@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<script>
+		function GetData()
+		{
+		 var FUSION_URL = 'https://www.googleapis.com/fusiontables/v1/query?';
+		 var APIkey = 'key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0';
+		 var query = 'sql=SELECT * FROM 1k6N_-P-wZ2ZMh8B_2Doym5oLsAJXdXHAqZO_H0I WHERE Ratings=7';
+		 var options =
+		   {
+		    method : 'post',
+		   };
+		 var response = UrlFetchApp.fetch(FUSION_URL+"+query+"&"+APIkey, options);
+		 console.log(response );
+		 }
+ </script>
+ 
+ </head>
+ <body onload="GetData();>
+ 
+ </body>

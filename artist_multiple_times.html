@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <meta content="True" name="HandheldFriendly">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<meta name="viewport" content="width=device-width">
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0; font-family:Arial, Helvetica, sans-serif; font-size: 1.3em;  }
+	header{
+	width:100%;
+	padding:20px;height:80px;
+	background-image:url('logo4.png');
+	background-repeat: no-repeat;
+	margin-left:15px;
+	padding-bottom:0px;
+	margin-top:10px
+}
+	  section{ color:#cecdcd; margin-left:160px;}
+	 #map-area{float:left;height:100%;width:100%;}
+	   #geolocation_alert{margin:15px;}
+      #map-canvas { height: 70%; margin:15px; margin-top:0px; border:1px dashed #cecdcd }
+	  .info{/*color:black*/max-width:100px;  padding:5px;font-size:1.1em; overflow:hidden;}
+	  ul#chooser {margin:15px; padding:0;margin-left:160px;margin-top:30px;}
+	  ul#chooser li, #chooser li.inactive {display:inline; color:#c53526; border: 1px solid #cecdcd;padding:10px;margin_bottom:15px;}
+	  ul#chooser li.active {background:#c53526; color:white;border:1px dotted #cecdcd}
+	  #whereto{margin:15px;}
+	  
+	   #info-area{float:left;display:none; border:2px solid #cecdcd;width:30%; height:70%;}
+	  
+	  .gm-style .gm-style-iw, .gm-style .gm-style-iw a, .gm-style .gm-style-iw span, .gm-style .gm-style-iw label, .gm-style .gm-style-iw div {
+    font-size: 9px;
+    font-weight: 300;
+	
+	
+	}
+
+.gm-style div, .gm-style span, .gm-style label {
+    text-decoration: none;
+}
+.gm-style{overflow-x:hidden;}
+.gm-style-iw {max-height:130px; overflow:scroll;  font-size:1.2em; overflow-x:hidden;min-width:100px;}
+.gm-style-iw div {overflow:scroll;overflow-x:hidden;  }
+@media screen and (min-width:641px) and  (max-width: 800px)  {	
+   
+	 header{
+	width:100%;
+	padding:0px;height:100px;
+	background-image:url('logo4.png');
+	background-repeat: no-repeat;
+	margin-left:15px;
+	padding-bottom:0px;
+	margin-top:10px
+}
+	 #geolocation_alert{margin:15px;}
+      #map-canvas { height: 70%; margin:15px; border:1px dashed #cecdcd }
+	  .info{/*color:black*/max-width:100px;  padding:5px;font-size:1.1em; overflow:hidden;}
+	  ul#chooser {margin:15px; padding:0;margin-bottom:0px; margin-left:170px; width:auto;margin-top:0px; float:none; padding-right:0px}
+	  ul#chooser li, #chooser li.inactive {display:inline;  color:#c53526; border: 1px solid #cecdcd;padding:10px;margin_bottom:0px;font-size:.65em}
+	  ul#chooser li.active {background:#c53526; color:white;border:1px dotted #cecdcd}
+	  
+	  
+
+	}
+
+@media screen and (min-width:481px) and  (max-width: 640px)  {	
+   
+	 header{
+	width:100%;
+	padding:0px;height:100px;
+	background-image:url('logo4.png');
+	background-repeat: no-repeat;
+	margin-left:15px;
+	padding-bottom:0px;
+	margin-top:10px
+}
+	 #geolocation_alert{margin:15px;}
+      #map-canvas { height: 70%; margin:15px; border:1px dashed #cecdcd }
+	  .info{/*color:black*/max-width:100px;  padding:5px;font-size:1.1em; overflow:hidden;}
+	  ul#chooser {margin:15px; padding:0;margin-bottom:0px; margin-left:170px; width:200px;margin-top:0px; float:right; padding-right:15px;}
+	  ul#chooser li, #chooser li.inactive {display:block;  color:#c53526; border: 1px solid #cecdcd;padding:8px;margin_bottom:0px;font-size:.7em}
+	  ul#chooser li.active {background:#c53526; color:white;border:1px dotted #cecdcd}
+	  
+	  
+
+	}
+
+@media screen and  (max-width: 479px)   {	
+   
+	 header{
+	width:100%;
+	padding:0px;height:100px;
+	background-image:url('logo4.png');
+	background-repeat: no-repeat;
+	margin-left:10px;
+	padding-bottom:0px;
+	margin-top:10px
+}
+	 #geolocation_alert{margin:15px;}
+      #map-canvas { height: 65%%; margin:15px; border:1px dashed #cecdcd }
+	  .info{/*color:black*/max-width:100px;  padding:5px;font-size:1.1em; overflow:hidden;}
+	  ul#chooser {margin:15px; padding:0;margin-bottom:0px;; margin-left:170px; width:130px;margin-top:0px;float:right; padding-right:10px;}
+	  ul#chooser li, #chooser li.inactive {display:block; color:#c53526; border: 1px solid #cecdcd;padding:8px; padding-top:12px; padding-bottom:12px;margin_bottom:15px;font-size:.48em}
+	  ul#chooser li.active {background:#c53526; color:white;border:1px dotted #cecdcd}
+	  form{font-size:.7em;}
+	  #whereyouat input {width:100px;}
+
+	
+	}
+
+	
+
+
+
+    </style>
+
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6v2xcmgqqW9cjp72GQhXi1FIaw1tdixs&sensor=true">
+    </script>
+    <script type="text/javascript" src="/Scripts/jquery-1.7.1.js"></script>
+   
+    <script type="text/javascript">
+	
+	/////////////////////////////////Problem with Michigan (and probably other states) check this out//////////////////////////////
+	////////////////////////////////Lat Longs are off may need to grab a different dataset and set up Fusion table the same////////////////////
+	
+	  var map={}
+	  map.markerArr=[];
+	  map.results ='50';
+	  
+	   if(window.location.hash=="")
+	  {
+	  	
+	  	if(navigator.geolocation)
+		{
+		navigator.geolocation.getCurrentPosition(handle_geolocation_query, handle_errors);  
+		}
+		else
+		{
+		$('#geolocation_alert').html('<p>Choose a City and State from the form below or enable geolocation on your device.</p>')
+		
+		}
+	}
+		// map.state=navigator.geolocation.getCurrentPosition(position.coords.latitude);
+	  //console.log(map.state);
+	  
+	  else
+	  {
+	  map.state=window.location.hash.replace('#','');
+	  google.maps.event.addDomListener(window, 'load', loadJSON);
+	  }
+	  
+	 map.genre = ''
+	 map.count=0;
+	 map.JArr=[];
+	 map.songinfo='';
+	 map.songinfoArr=[];
+	 map.latlongsongArr=[];
+	 map.songs=[];
+	 map.spot_count =0;
+	 map.spotifyStr='';
+	  function loadJSON()
+	  {
+	  
+	   if(map.genre!="")
+	   {
+	   var json='http://developer.echonest.com/api/v4/artist/search?api_key=3KFREGLKBDFLWSIEC&format=json&results='+map.results+'&'+map.genre+'&artist_location='+map.state+'&bucket=artist_location&bucket=songs'
+	   }
+	   else
+	   {
+	   var json='http://developer.echonest.com/api/v4/artist/search?api_key=3KFREGLKBDFLWSIEC&format=json&results='+map.results+'&artist_location='+map.state+'&bucket=artist_location&bucket=songs'
+	   }
+	    $.getJSON(json, 							
+		function(response) {
+			map.city=""
+			map.cityArr=[]
+			map.markers = []
+			map.title=[];
+			map.artist=[];	
+			map.latlong =[];
+			//map.location=[];
+			map.sandupsArr=[]
+			map.dupsArr=[];
+			map.finaldupsArr=[];
+			map.holderArr=[];
+			map.holderArr2=[];
+			map.finalArr=[];
+			map.songtitleArr=[];
+			map.spotify=[];
+			map.responselength = response.response.artists.length;
+			//console.log(map.responselength);
+			
+			for(i=0; i<response.response.artists.length; i++)
+			{
+			///////////////////////Start Here//////////////////////
+			map.location=response.response.artists[i].artist_location
+			//map.state = map.location.region;
+			map.state = map.location.location.split('US')[0];
+			map.state = map.state.slice((map.state.length-4), (map.state.length-2));
+			
+			map.city = map.location.city;
+			
+			map.cityArr.push(map.city);
+			if(response.response.artists[i].songs[0]!==null&&response.response.artists[i].songs[0]!=='undefined')
+			{
+			map.songtitle = response.response.artists[i]
+			//console.log(map.songtitle);
+			}
+			else if (response.response.artists[i].songs[0]==null)
+			{
+			map.songtitle='';
+			
+			}	
+		
+			map.artist = response.response.artists[i].name;
+			map.title.push('<p class="info" id="marker_text'+i+'">'+map.songtitle+'<br/>by '+map.artist+'<br/>'+map.city+', 	'+map.state+'</p>');
+			
+			/*
+			$.getJSON("http://ws.spotify.com/search/1/track.json?q="+map.artist, 							
+			function(response) {
+			
+			for(var k=0; i<response.tracks.length; k++)
+			{
+				
+				
+				if(map.songtitle.toLowerCase()==response.tracks[i].name.toLowerCase())
+				{
+				var songid=response.tracks[k].href.replace('spotify:track:','');		
+				//map.spotify.push('<br/>Listen on <a href="http://open.spotify.com/track/'+songid+'" target="_blank">Spotify</a>')
+				
+				}
+			}
+		
+		})*/
+		
+		//map.JArr.push(map.state+'&&'+map.cityArr[i]+'%%'+map.title[i])
+		loadSpotify(map.songtitle, map.artist, map.cityArr[i], map.state, map.spot_count);	
+		
+		/*for(var y=0; y<map.JArr.length; y++)
+		{
+		console.log(map.JArr[y]);
+		console.log(map.href[y]);
+		}*/	
+			
+				
+				
+			}							
+		 	
+	})
+	
+	}		
+			
+			
+	  
+	  
+function findLatLong(str)
+{
+	////deal with duplicates///////////////
+	var arrStr =str
+	map.finalArr = arrStr.split('@@');
+	map.finalArr.shift();
+	////////////////////////////START HERE//////////////////////////////////
+	if(map.finalArr.length>1	)
+	{
+		for(var x=0; x<map.finalArr.length; x++)
+		{
+		
+		map.count++
+		map.c=map.finalArr[x].split('&&')[0]
+		//map.c = map.c.slice(0,index);
+		map.s=map.finalArr[x].split('&&')[1].split('%%')[0];
+		//console.log(map.c+':'+map.s);
+		var json=	"https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Lat%2C+Long%2CCityName%2C+State+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+'"+map.s+"'+AND+CityName%3D'"+map.c+"'&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0"
+		//alert(json);
+		 $.getJSON(json, function(response) {
+						//alert(map.c);
+						for (var vv=0; vv<(response.rows[0].length/4); vv++)
+						{
+						map.latlong.push(response.rows[0].toString());
+						
+										//console.log(map.count +':'+map.results);
+					
+						
+													 
+						if(map.count==parseInt(map.finalArr.length))
+							{
+							//console.log(map.count)	
+							initialize(map.latlong);
+							
+							}
+						}	
+						
+							
+					})
+		
+					
+		}		
+	}				
+	else
+	{
+	map.count++;
+	map.c=map.finalArr[0].split('&&')[0]
+		//map.c = map.c.slice(0,index);
+	map.s=map.finalArr[0].split('&&')[1].split('%%')[0];
+	//var title = map.JArr[0].split('@')[2];
+	var json="https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Lat%2C+Long%2CCityName%2C+State+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+'"+map.s+"'+AND+CityName%3D'"+map.c+"'&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0"
+		//alert(json);
+		 $.getJSON(json, function(response) {
+						
+						map.latlong.push(response.rows[0].toString());
+						
+										//console.log(map.count +':'+map.results);
+					
+						
+													 
+						
+							initialize(map.latlong);
+							
+							
+							
+						
+							
+					})
+	}
+}	  
+	   
+	  
+function initialize(arr) {
+  	//alert(arr);
+	//console.log(arr.length)
+	var arrStr = arr.toString();
+	map.latlongsong='';
+	
+	if(arr.length>1)
+	{
+		for(var g=0;g<arr.length; g++)
+		{
+			for(var h=0; h<map.finalArr.length; h++)
+			{
+			//console.log(arr[g]+':'+map.finalArr[h].split('&&')[1].split('%%')[0])
+						
+				if(arr[g].match(map.finalArr[h].split('&&')[0]))
+				{
+						//map.latlongsongArr.push(arr[g].split(',')[0]+','+arr[g].split(',')[1]+'::'+map.finalArr[h].split('&&')[1].split('%%')[1]);
+						map.latlongsong+=	arr[g].split(',')[0]+','+arr[g].split(',')[1]+','+arr[g].split(',')[2]+','+arr[g].split(',')[3]+'::'+map.finalArr[h].split('&&')[1].split('%%')[1]+'$$$';
+				}
+			}
+		}
+	}
+	else
+	{
+	//map.latlongsongArr.push(arr[0].split(',')[0]+','+arr[0].split(',')[1]+':'+map.finalArr[0].split('&&')[1].split('%%')[1])
+	map.latlongsong+=arr[0].split(',')[0]+','+arr[0].split(',')[1]+','+arr[0].split(',')[2]+','+arr[0].split(',')[3]+'::'+map.finalArr[0].split('&&')[1].split('%%')[1]+'$$$'
+	}	
+	map.mapOptions = {
+    zoom: 6,
+    center: new google.maps.LatLng(parseFloat(map.latlong[0].split(',')[0]),  parseFloat(map.latlong[0].split(',')[1])),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+	
+  	}
+	//alert(map.center);
+	  map.map = new google.maps.Map(document.getElementById("map-canvas"),
+									map.mapOptions);
+	map.image = "http://upload.wikimedia.org/wikipedia/commons/1/1d/Little_music_note.jpg"
+	//console.log(map.latlongsongArr);		
+ 	  pushLatLong(map.map, map.latlongsong); 
+	 
+  	
+}
+
+function createMarker(pos, songtitle, index) {
+
+ 		 		
+	    map.marker = new google.maps.Marker({       
+        position: pos, 
+        map: map.map,  // google.maps.Map 
+        title: songtitle,
+		icon:map.image
+	
+		});	
+		
+					
+		
+   createInfo(map.map, map.marker, map.marker.title);
+	
+}
+
+function createInfo(map, marker, title)
+
+{
+
+//alert(title);
+  var myOptions = {
+                 content: title
+                ,disableAutoPan: false
+                ,maxWidth: 150
+                ,pixelOffset: new google.maps.Size(-140, 0)
+                ,zIndex: null
+                ,boxStyle: { 
+                  background: 'white'
+                  ,opacity: 0.9
+                  ,width: "100px",overflow:'auto'
+                 }
+                ,closeBoxMargin: "10px 2px 2px 2px"
+                ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+                ,infoBoxClearance: new google.maps.Size(1, 1)
+                ,isHidden: false
+                ,pane: "floatPane"
+                ,enableEventPropagation: false
+				,minWidth:125
+				,color:'green'
+   			};
+
+/*google.maps.event.addListener(marker, 'click', function() {
+    map.infowindow = new InfoBox(myOptions)
+		map.infowindow.open(map,marker);
+		});*/	
+//console.log(marker[0].title);
+
+
+
+google.maps.event.addListener(marker,'click',function(){
+	map.infowindow = new google.maps.InfoWindow({content: title});
+	map.infowindow.open(map,marker);
+})
+}
+
+
+	  
+function pushLatLong(map, str) {
+	 		var arr= str.split('$$$')
+			//console.log(arr);
+			
+			
+			
+			for(var n=0; n<arr.length;n++)
+			{
+			//console.log(arr[n].split(',')[0])
+				//console.log(arr[n]);
+				var myLatLng = new google.maps.LatLng(parseFloat(arr[n].split(',')[0]),  parseFloat(arr[n].split(',')[1]));
+				var city = arr[n].split(',')[2]+', '+ arr[n].split(',')[3].split('::')[0];
+				
+				var songtitle ='<p style="font-weight:bold">'+city+'</p>'+ arr[n].split('::')[1]
+				//console.log(myLatLng);
+				createMarker(myLatLng,songtitle, n);
+				
+			}
+			
+				
+			
+			
+		
+		// To add the marker to the map, call setMap();
+		 
+		 }
+		 
+
+		  
+function loadSpotify(songtitle, songartist, city, state, number)
+{
+map.spot_count++
+var artist = songtitle.name;
+;
+//console.log(artist+':'+number+map.responselength);
+var songtitles = songtitle.songs;
+songtitle ='';
+for (var x=0; x<songtitles.length; x++)
+{
+	if(!songtitle.match(songtitles[x].title.replace(/\W/g,'')))
+	{
+	songtitle+=songtitles[x].title+'**';
+	//console.log(songtitle);
+	}
+}
+
+if(songtitle!='')
+{
+  $.getJSON("http://ws.spotify.com/name
+  /1/track.json?q="+songartist.replace(/&/g, '%26'), 							
+		function(response) {
+			
+			for(var i=0; i<response.tracks.length; i++)
+			{
+				//alert(songtitle+':'+response.tracks[i].name.toLowerCase());
+				//map.songinfoArr.sort()	 	
+				var songtitleSplit = songtitle.split('**');
+				for(var x=0; x<2; x++)
+				{
+				if(songtitleSplit[x]!=null)
+				{
+				songtitle_1 =songtitleSplit[x];
+				}
+				
+					if(songtitle_1.replace(/\W/g,'').toLowerCase().match(response.tracks[i].name.toLowerCase().replace(/\W/g,''))&&!map.songs.toString().replace(/\W/g,'').match(songtitle_1.replace(/\W/g,'')))
+					{
+					//console.log(songtitle_1);
+				
+					map.songs.push(songtitle_1);
+					//console.log(songtitle_1);
+					//alert(city+':'+state);
+					map.songid=response.tracks[i].href.replace('spotify:track:','');		
+						
+						/*if(!map.songinfoArr.toString().replace(/\W/g,'').match(city.replace(/\W/g,'')))
+						{*/
+						map.songinfoArr.push('@@'+city+'&&'+ state+'%%'+ '<p class="info">'+songtitle_1+'<br>by '+songartist+'</p><a href="https://embed.spotify.com/?uri=spotify:track:'+map.songid+'" target="_blank">Listen on Spotify</a>');
+						//getStarted(map.songinfo, map.songinfoArr, number);
+						//}
+						/*else 
+						{
+						//map.songinfoArr.push('<p class="info">'+songtitle+'<br>by '+songartist+'</p><p>Listen on <a href="http://open.spotify.com/track/'+map.songid+'" target="_blank">Spotify</a></p>');	
+					
+						}*/
+ 					}
+				
+				}
+			}
+		//console.log(number+':'+map.spot_count+':'+ map.responselength);
+		
+		if(number==(map.responselength-1))
+		{
+			//console.log('loaded');
+			map.songinfoArr.sort();
+			
+			//console.log(map.songinfoArr.length);
+			
+			for(var x=0; x<map.songinfoArr.length; x++)
+			{
+				
+				if(!map.songinfo.match(map.songinfoArr[x].split('&&')[0]))
+				{
+				
+				map.songinfo+=map.songinfoArr[x];
+				//console.log(map.songinfo);
+				}
+				else
+				{
+				map.songinfo+=map.songinfoArr[x].split('%%')[1]
+				}
+				
+			}
+			findLatLong(map.songinfo);
+		}		
+						
+		})
+	}	
+} 
+
+function handle_geolocation_query(position){  
+            map.currentLat= position.coords.latitude;
+             map.currentLong= position.coords.longitude;
+			 map.currentLatRange = (map.currentLat-.05);
+			 map.currentLongRange =(map.currentLong-.05) 
+        	//alert(map.currentLat+','+map.currentLong);
+			var json="https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+CityName%2C+StateAB+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+Lat+<=+"+map.currentLat+"+AND+Lat>="+map.currentLatRange+"+AND+Long<="+map.currentLong+"+AND+Long>="+map.currentLongRange+"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0";
+			 $.getJSON(json, function(response) {
+						
+						map.state = response.rows[0].toString().toLowerCase().replace(",",'+')+'+us';
+						loadJSON()
+						
+						})
+			//map.state=
+		}
+		
+function handle_errors(error)
+    {
+        switch(error.code)
+        {
+            case error.PERMISSION_DENIED: $('#geolocation_alert').html('<p>Choose a City and State from the form below or enable geolocation on your device.</p>')
+            break;
+ 
+            case error.POSITION_UNAVAILABLE: $('#geolocation_alert').html("<p>We could not detect current position</p>");
+            break;
+ 
+            case error.TIMEOUT: $('#geolocation_alert').html("<p> There was a server timeout.");
+            break;
+ 
+            default: $('#geolocation_alert').html("There was an unknown error.");
+            break;
+        }
+    }		
+		
+ </script>
+ 
+ <title>Music Where I Am</title></head>
+	  <body >
+       <header> 
+     <ul id="chooser">
+    
+    <li class="active">MUSIC WHERE I AM </li><li>ROADTRIP PLAYLIST</li><li>FOLLOW ME, MUSIC</li>
+  
+    </ul>
+    <!-- <section><p>Discover Music &nbsp;&nbsp;&nbsp;where you are... &nbsp;&nbsp;&nbsp;Where you are going... &nbsp;&nbsp;&nbsp;Where you want to be.</p> </section>
+      -->
+      </header>
+      <div id="geolocation_alert"></div>
+    <div id="map-area">
+    <div id="whereyouat"><form id="whereto" name="whereto">
+    City <input type="text" name="city" />
+    State <input type="text" name="city" />
+    
+    </form></div>
+    
+    <div id="map-canvas"></div>
+    </div>
+    <div id="info-area">
+    </div>
+ 
+</body>
+</html>

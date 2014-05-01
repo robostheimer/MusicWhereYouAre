@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+<script type="text/javascript" src="/Scripts/jquery-1.7.1.js"></script>
+</head>
+
+<body>
+<script>
+var playListURL = 'http://en.wikivoyage.org/w/api.php?format=json&action=query&titles=minneapolis_(minnesota)&redirects&prop=revisions&rvprop=content&callback=?';
+	
+	$.getJSON(playListURL ,function(data) {
+       
+		$.each(data.query.pages, function(i, item) {
+		alert(item.pageid);
+		
+		});
+	});
+</script>
+</body>
+</html>

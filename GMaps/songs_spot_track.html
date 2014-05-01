@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+       <meta content="True" name="HandheldFriendly">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<meta name="viewport" content="width=device-width">
+<style type="text/css">
+
+
+
+
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0; font-family:Arial, Helvetica, sans-serif; font-size: 1.3em;  }
+	header{
+	
+	padding:20px;height:80px;
+	background-image:url('logo4.png');
+	background-repeat: no-repeat;
+	margin-left:15px;
+	padding-bottom:0px;
+	margin-top:10px
+}
+	  section{ color:#cecdcd; margin-left:160px;}
+	 #map-area{float:left;height:100%;width:100%;}
+	   #geolocation_alert{margin:15px;}
+      #map-canvas { height: 70%; margin:15px; margin-top:0px; border:1px dashed #cecdcd }
+	  .info{/*color:black*/max-width:100px;  padding:5px;font-size:1.1em; overflow:hidden;}
+	  ul#chooser {margin:15px; padding:0;margin-top:0px;float:right; margin-right:0px;}
+	  ul#chooser li, #chooser li.inactive { color:#c53526; border: 1px solid #cecdcd;padding:10px;margin_bottom:15px;font-size:.9em;list-style-type:none;width:200px;}
+	  ul#chooser li.active {background:#c53526; color:white;border:1px dotted #cecdcd; }
+	   #whereto{margin:15px;}
+	  
+	   #info-area{float:left;display:none; border:2px solid #cecdcd;width:30%; height:70%;}
+	  
+	  .gm-style .gm-style-iw, .gm-style .gm-style-iw a, .gm-style .gm-style-iw span, .gm-style .gm-style-iw label, .gm-style .gm-style-iw div {
+    font-size: 9px;
+    font-weight: 300;
+	
+	
+	}
+
+.gm-style div, .gm-style span, .gm-style label {
+    text-decoration: none;
+}
+.gm-style{overflow-x:hidden;}
+.gm-style-iw {max-height:130px; overflow:scroll;  font-size:1.2em; overflow-x:hidden;min-width:100px;}
+.gm-style-iw div {overflow:scroll;overflow-x:hidden;  }
+
+
+@font-face {
+	font-family: 'MusicWhereIAM';
+	src:url('/fonts/MusicWhereIAM.eot?w8796i');
+	src:url('/fonts/MusicWhereIAM.eot?#iefixw8796i') format('embedded-opentype'),
+		url('/fonts/MusicWhereIAM.woff?w8796i') format('woff'),
+		url('/fonts/MusicWhereIAM.ttf?w8796i') format('truetype'),
+		url('/fonts/MusicWhereIAM.svg?w8796i#MusicWhereIAM') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[data-icon]:before {
+	font-family:'MusicWhereIAM';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+ #search{font-size:1em;; margin-left:15px;float:left;width:95%}
+ #findmusic{width:100%;margin-bottom:10px;}
+input{font-size:20px;}
+.search{
+
+font-size:15px;
+float: left;
+background: #c53526;
+color: #fff;
+padding: 5px;
+margin-top:2px;
+cursor: pointer;border:1px solid #cecdcd;
+}
+
+@media screen and (min-width:641px) and  (max-width: 800px)  {	
+   
+	 header{
+	width:100%;
+	padding:0px;height:100px;
+	background-image:url('logo4.png');
+	background-repeat: no-repeat;
+	margin-left:15px;
+	padding-bottom:0px;
+	margin-top:10px
+}
+	 #geolocation_alert{margin:15px;}
+      #map-canvas { height: 70%; margin:15px; border:1px dashed #cecdcd }
+	  .info{/*color:black*/max-width:100px;  padding:5px;font-size:1.1em; overflow:hidden;}
+	  ul#chooser {margin:15px; padding:0;margin-bottom:0px; margin-left:170px; width:auto;margin-top:0px; float:none; padding-right:0px}
+	  ul#chooser li, #chooser li.inactive {display:block;  color:#c53526; border: 1px solid #cecdcd;padding:10px;margin_bottom:0px;font-size:.65em}
+	  ul#chooser li.active {background:#c53526; color:white;border:1px dotted #cecdcd}
+	  
+	@font-face {
+	font-family: 'MusicWhereIAM';
+	src:url('/fonts/MusicWhereIAM.eot?w8796i');
+	src:url('/fonts/MusicWhereIAM.eot?#iefixw8796i') format('embedded-opentype'),
+		url('/fonts/MusicWhereIAM.woff?w8796i') format('woff'),
+		url('/fonts/MusicWhereIAM.ttf?w8796i') format('truetype'),
+		url('/fonts/MusicWhereIAM.svg?w8796i#MusicWhereIAM') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[data-icon]:before {
+	font-family:'MusicWhereIAM';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+ #search{font-size:1em;; margin-left:15px;float:left;width:95%}
+ #findmusic{width:100%;margin-bottom:10px;}
+input{font-size:20px;}
+.search{
+
+font-size:15px;
+float: left;
+background: #c53526;
+color: #fff;
+padding: 5px;
+margin-top:2px;
+cursor: pointer;border:1px solid #cecdcd;
+}
+  
+
+	}
+
+@media screen and (min-width:481px) and  (max-width: 640px)  {	
+   
+	 header{
+	width:100%;
+	padding:0px;height:100px;
+	background-image:url('logo4.png');
+	background-repeat: no-repeat;
+	margin-left:15px;
+	padding-bottom:0px;
+	margin-top:10px
+}
+	 #geolocation_alert{margin:15px;}
+      #map-canvas { height: 70%; margin:15px; border:1px dashed #cecdcd }
+	  .info{/*color:black*/max-width:100px;  padding:5px;font-size:1.1em; overflow:hidden;}
+	  ul#chooser {margin:15px; padding:0;margin-bottom:0px; margin-left:170px; width:200px;margin-top:0px; float:right; padding-right:15px;}
+	  ul#chooser li, #chooser li.inactive {display:block;  color:#c53526; border: 1px solid #cecdcd;padding:8px;margin_bottom:0px;font-size:.7em}
+	  ul#chooser li.active {background:#c53526; color:white;border:1px dotted #cecdcd}
+	  
+	@font-face {
+	font-family: 'MusicWhereIAM';
+	src:url('/fonts/MusicWhereIAM.eot?w8796i');
+	src:url('/fonts/MusicWhereIAM.eot?#iefixw8796i') format('embedded-opentype'),
+		url('/fonts/MusicWhereIAM.woff?w8796i') format('woff'),
+		url('/fonts/MusicWhereIAM.ttf?w8796i') format('truetype'),
+		url('/fonts/MusicWhereIAM.svg?w8796i#MusicWhereIAM') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[data-icon]:before {
+	font-family:'MusicWhereIAM';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+ #search{font-size:1em;; margin-left:15px;float:left;width:95%}
+ #findmusic{width:100%;margin-bottom:10px;}
+input{font-size:20px;}
+.search{
+
+font-size:15px;
+float: left;
+background: #c53526;
+color: #fff;
+padding: 5px;
+margin-top:2px;
+cursor: pointer;border:1px solid #cecdcd;
+}
+	  
+
+	}
+
+@media screen and  (max-width: 479px)   {	
+   
+	 header{
+	width:100%;
+	padding:0px;height:100px;
+	background-image:url('logo4.png');
+	background-repeat: no-repeat;
+	margin-left:10px;
+	padding-bottom:0px;
+	margin-top:10px
+}
+	 #geolocation_alert{margin:15px;}
+      #map-canvas { height: 65%%; margin:15px; border:1px dashed #cecdcd }
+	  .info{/*color:black*/max-width:100px;  padding:5px;font-size:1.1em; overflow:hidden;}
+	  ul#chooser {margin:15px; padding:0;margin-bottom:0px;; margin-left:170px; width:130px;margin-top:0px;float:right; padding-right:10px;}
+	  ul#chooser li, #chooser li.inactive {display:block; color:#c53526; border: 1px solid #cecdcd;padding:8px; padding-top:12px; padding-bottom:12px;margin_bottom:15px;font-size:.48em}
+	  ul#chooser li.active {background:#c53526; color:white;border:1px dotted #cecdcd}
+	@font-face {
+	font-family: 'MusicWhereIAM';
+	src:url('/fonts/MusicWhereIAM.eot?w8796i');
+	src:url('/fonts/MusicWhereIAM.eot?#iefixw8796i') format('embedded-opentype'),
+		url('/fonts/MusicWhereIAM.woff?w8796i') format('woff'),
+		url('/fonts/MusicWhereIAM.ttf?w8796i') format('truetype'),
+		url('/fonts/MusicWhereIAM.svg?w8796i#MusicWhereIAM') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[data-icon]:before {
+	font-family:'MusicWhereIAM';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+ #search{font-size:.9=8em;; margin-left:15px;float:left;width:306px;}
+ #findmusic{width:100%;margin-bottom:10px;}
+input{font-size:18px;}
+.search{
+
+font-size:13px;
+float: left;
+background: #c53526;
+color: #fff;
+padding: 5px;
+padding-left:7px; padding-right:7px;
+margin-top:2px;
+cursor: pointer;border:1px solid #cecdcd;
+}
+ 
+	
+	}
+</style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6v2xcmgqqW9cjp72GQhXi1FIaw1tdixs&sensor=true">
+    </script>
+    <script type="text/javascript" src="/Scripts/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.history.js"></script>
+<script type="text/javascript">
+  var map={}
+  map.markerArr=[];
+ map.map_range = [];
+  map.results ='100';
+  function historyLoad(hash) {
+	
+  if(hash) 
+   	{
+		
+		//hasher = hasher.replace(/\+ /g,'');
+		//hasher = hasher.replace(/ \+/g,'');
+		map.hash=hash=hash+'+us';
+		map.hash= map.hash.replace('_', ' ');
+			Hasher(map.hash);		
+	}
+	else  if(hash==""){ 
+	if(navigator.geolocation)
+		{
+		navigator.geolocation.getCurrentPosition(handle_geolocation_query, handle_errors);  
+		}
+		else
+		{
+		$('#geolocation_alert').show();
+		$('#geolocation_alert').html('<p>Choose a City and State from the form below or enable geolocation on your device.</p>')
+		
+		}
+	}
+}	
+   
+ $(document).ready(function() {
+        
+		$.history.init(historyLoad);
+
+		
+		//$('a.inactive').click(function() {
+          
+			// return false;
+        //});
+    });
+	 /* if(window.location.hash=="")
+	  {
+	  	
+	  	if(navigator.geolocation)
+		{
+		navigator.geolocation.getCurrentPosition(handle_geolocation_query, handle_errors);  
+		}
+		else
+		{
+		$('#geolocation_alert').show();
+		$('#geolocation_alert').html('<p>Choose a City and State from the form below or enable geolocation on your device.</p>')
+		
+		}
+	}
+		
+		// map.state=navigator.geolocation.getCurrentPosition(position.coords.latitude);
+	  //console.log(map.state);
+	  
+	  else 
+	  {
+	  map.hash = window.location.hash
+	  //google.maps.event.addDomListener(window, 'load', loadJSON);
+	 $.history.init(historyLoad);
+	  }*/
+	  
+	  
+	 
+	function Hasher(hash)
+	{
+	 
+	  var qs_arr= hash.split('+')
+	 var qs1 = qs_arr[0].replace('#','').toUpperCase();
+	 var qs2 = qs_arr[1].replace('#','');
+	
+	map.lat_querystring='';
+	map.long_querystring='';
+	
+	 if(hash.split('+').length==2)
+	 {
+	
+	 var qs1 = qs_arr[0].replace('#','').toUpperCase();
+	
+	//alert(map.title);
+	map.long_querystring = 'https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Long+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+%27'+qs1+'%27+ORDER%20BY+Long&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+	map.lat_querystring= 'https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Lat+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+%27'+qs1+'%27+ORDER%20BY+Lat&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+	 }
+	 else
+	 {
+	
+	 var tmpArr = []; 
+	 var qs1 = qs_arr[0].replace('#','');
+	  qs1=qs1.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+		 var qs2 = qs_arr[1].replace('#','').toUpperCase();
+	 map.long_querystring='https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Long+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+%27'+qs2+'%27+AND+CityName%3D%27'+qs1+'%27+ORDER%20BY+Long&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+ map.lat_querystring='https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Lat+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+%27'+qs2+'%27+AND+CityName%3D%27'+qs1+'%27+ORDER%20BY+Lat&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0'
+ 
+	 }
+	loadFusionTable()
+	map.map_range=[];
+}	
+	 
+	 function loadFusionTable()
+	 {
+	 $.getJSON(map.lat_querystring, function(response) {
+					if(response.rows==null)
+					{
+					window.location.hash="#error"
+					$('#map-canvas').html('<p style="margin:15px;">Add either a city and state abbreviation (Make sure to add a comma between the city and the State Abbreviation) or just the state abbreviation to the form above.  For now, this project is only usable to find artist in the United States.</p>'); 
+					};
+						map.lat_range =response.rows[0]+':'+response.rows[(response.rows.length-1)]; 
+						combineCalls(map.lat_range);
+						
+						
+							 $.getJSON(map.long_querystring, function(response) {
+							
+							map.long_range =response.rows[0]+':'+response.rows[(response.rows.length-1)]; 
+							
+							combineCalls(map.long_range)					
+							
+							})
+							
+						
+						})
+	
+	
+	
+	 		
+	
+	 }
+	 
+	 function combineCalls(latorlong)
+	 {
+	 
+	 map.map_range.push(latorlong);
+	 if(map.map_range.length==2)
+	 {
+	
+	 loadJSON(map.map_range);
+	 }
+	 }
+	 
+	  function loadJSON(arr)
+	  {
+	 //alert('loading');
+	  var lat_min = parseFloat((arr.toString().split(',')[0].split(':')[0])-.15)
+	  var lat_max=parseFloat((arr.toString().split(',')[0].split(':')[1])+.15);
+	  var long_min = parseFloat((arr.toString().split(',')[1].split(':')[0])-.15)
+	  var long_max=parseFloat((arr.toString().split(',')[1].split(':')[1])+.15);
+	 
+	 //console.log(long_min);
+	 //console.log(long_max);
+	  
+	    $.getJSON("http://developer.echonest.com/api/v4/song/search?api_key=3KFREGLKBDFLWSIEC&format=json&results="+map.results+"&min_latitude="+lat_min+"&max_latitude="+lat_max+"&min_longitude="+long_min+"&max_longitude="+long_max+"&bucket=artist_location&bucket=id:spotify-WW&bucket=tracks&limit=true", 							
+		function(response) {
+			map.markers = []
+			map.title=[];
+			map.artist=[];
+			
+			map.info=[];
+			map.lat_long_str="";	
+			map.containArr=[];
+			for(i=0; i<response.response.songs.length; i++)
+			{
+			///////////////////////Start Here//////////////////////
+			
+				
+				
+				map.lat= response.response.songs[i].artist_location.latitude;
+				map.long= response.response.songs[i].artist_location.longitude;
+				map.city = response.response.songs[i].artist_location.location.split(',')[0]+','+ response.response.songs[i].artist_location.location.split(',')[1];
+				map.spot_str = response.response.songs[i].tracks[0].foreign_id;
+				map.spot = map.spot_str.split(':')[2]
+				
+				
+				map.info.push(map.city+'$$'+ map.lat+'&&'+ map.long+'%%<p class="info">'+response.response.songs[i].title+'<br/>by '+response.response.songs[i].artist_name+'<br/><a href="https://play.spotify.com/track/'+map.spot+'" target="_blank">Listen On Spotify</a></p>');
+			}
+			map.info.sort()
+			 for(var r=0; r<map.info.length; r++)
+			{
+				//console.log(map.info[r]);
+				if(!map.lat_long_str.match(map.info[r].split('$$')[1].split('&&')[0]+map.info[r].split('&&')[1].split('%%')[0]))
+				{
+				
+				map.lat_long_str += map.info[r].split('$$')[1].split('&&')[0]+map.info[r].split('&&')[1].split('%%')[0]+':'
+				map.containArr.push( '@@'+map.info[r])				
+				}
+				else
+				{
+				map.containArr.push( map.info[r].split('%%')[1]);
+				}	
+			}
+			var arrStr = map.containArr.toString()	
+	//console.log(arrStr)	
+			var arrStrArr = arrStr.split('@@');
+			 for(var x=1; x<arrStrArr.length; x++)
+			 {
+			
+			map.markers.push(arrStrArr[x].split('&&')[0].split('$$')[1]+':'+arrStrArr[x].split('%%')[0].split('&&')[1])
+			map.title.push('<p><b>'+arrStrArr[x].split('$$')[0].replace(',undefined','')+'</b></p>'+arrStrArr[x].split('%%')[1].replace(/<\/p>,/g,'</p>'))  
+			}
+					
+									
+		 initialize(map.markers, map.title, map.lat, map.long)	
+		 })
+	
+	  }    
+	  
+function initialize(arr, songtitle, str1, str2) {
+ if(map.hash.split('+').length==2)
+ {
+
+  	map.mapOptions = {
+    zoom: 6,
+	center: new google.maps.LatLng(str1, str2),
+    
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+	
+  	}
+}
+else
+{
+	map.mapOptions = {
+		zoom: 11,
+		center: new google.maps.LatLng(str1, str2),
+		
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	}	
+}	
+	   map.map = new google.maps.Map(document.getElementById("map-canvas"),
+									map.mapOptions);
+									
+	map.image = "http://upload.wikimedia.org/wikipedia/commons/1/1d/Little_music_note.jpg"
+	console.log(songtitle);		
+ 	 pushLatLong(map, arr, songtitle); 
+  	
+}
+function createMarker(pos, songtitle, index) {
+
+   		
+	
+		//console.log(pos);
+		//console.log(songtitle);
+	    map.marker = new google.maps.Marker({       
+        position: pos, 
+        map: map.map,  // google.maps.Map 
+        title:songtitle[index],
+		icon:map.image
+		});	
+		//console.log(songtitle[index]);
+		//var infowindow = new google.maps.InfoWindow({
+		//content:'content'+t
+		//})      
+    	//createInfo(marker, marker.title, marker.map);
+		/*map.markerArr.push(map.marker+'::'+map.marker.title);
+		if(index ==parseInt(map.results-1))
+		{
+		console.log('last one');
+		
+		}*/
+   createInfo(map.map, map.marker, map.marker.title);
+	
+}
+
+function createInfo(map, marker, title)
+
+{
+google.maps.event.addListener(marker,'click',function(){
+	map.infowindow = new google.maps.InfoWindow({content: title});
+	map.infowindow.open(map,marker);
+})
+}
+
+
+	  
+function pushLatLong(map, arr, songtitle) {
+	 
+			
+			/*var goldStar = {
+		  path: d="M247.019,175.816l23.146-3v22.03c-2.163-0.513-5.258-0.513-7.631,1.473c-4.752,3.976-0.582,8.445,4.857,6.228c3.096-1.263,4.128-3.287,4.128-6.345v-27.386l-25.854,3v27.434c-2.163-0.513-5.258-0.511-7.631,1.475c-4.752,3.975-0.582,8.445,4.857,6.228c3.096-1.263,4.128-3.29,4.128-6.348V175.816z",
+		  fillColor: "yellow",
+		  fillOpacity: 0.5,
+		  scale: 1,
+		  strokeColor: "gold",
+		  strokeWeight: 4
+		};*/
+			console.log(songtitle);
+			for(var n=0; n<arr.length;n++)
+			{
+			//alert(arr[n].replace(':',','));
+			
+			var myLatLng = new google.maps.LatLng(arr[n].split(':')[0],arr[n].split(':')[1]);
+			
+			
+			createMarker(myLatLng,songtitle, n);
+			
+			
+			/*var infowindow = new google.maps.InfoWindow({
+				  content: 'content'+n
+			  });
+	
+			
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				map: map,
+				title:'title'+n,
+				icon:image,
+				id: 'marker'+n
+				
+
+				});
+			console.log(marker.id);
+			marker.setMap(map);	
+			
+			*/
+	
+			}
+					
+		
+		
+		// To add the marker to the map, call setMap();
+		 
+		 }
+		 // google.maps.event.addDomListener(window, 'load', loadFusi);
+		 function handle_geolocation_query(position){  
+            map.currentLat= (position.coords.latitude+.15);
+             map.currentLong= (position.coords.longitude+.15);
+			 map.currentLatRange = (map.currentLat-.15);
+			 map.currentLongRange =(map.currentLong-.15) 
+        	//alert(map.currentLat+','+map.currentLong);
+			var json="https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+CityName%2C+StateAB+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+Lat+<=+"+map.currentLat+"+AND+Lat>="+map.currentLatRange+"+AND+Long<="+map.currentLong+"+AND+Long>="+map.currentLongRange+"&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0";
+			 $.getJSON(json, function(response) {
+						
+						map.hash = response.rows[0].toString().toLowerCase().replace(",",'+')+'+us';
+						map.hash=map.hash.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+						
+						Hasher(map.hash)
+						
+						})
+			//map.state=
+		}
+function handle_errors(error)
+    {
+        switch(error.code)
+        {
+            case error.PERMISSION_DENIED: $('#geolocation_alert').html('<p>Choose a City and State from the form below or enable geolocation on your device.</p>')
+            break;
+ 
+            case error.POSITION_UNAVAILABLE: $('#geolocation_alert').html("<p>We could not detect current position</p>");
+            break;
+ 
+            case error.TIMEOUT: $('#geolocation_alert').html("<p> There was a server timeout.");
+            break;
+ 
+            default: $('#geolocation_alert').html("There was an unknown error.");
+            break;
+        }
+    }		
+ 		  
+        </script>
+	 <title>Music Where You Are</title></head>
+	  <body  >
+       <header> 
+     <ul id="chooser">
+    
+    <li class="active">MUSIC WHERE I AM </li><li>ROADTRIP PLAYLIST</li><li>FOLLOW ME, MUSIC</li>
+  
+    </ul>
+    <!-- <section><p>Discover Music &nbsp;&nbsp;&nbsp;where you are... &nbsp;&nbsp;&nbsp;Where you are going... &nbsp;&nbsp;&nbsp;Where you want to be.</p> </section>
+      -->
+      </header>
+      <div id="geolocation_alert"></div>
+    <div id="map-area">
+    <div id="whereyouat">
+    <form id="search" name="spot" method="post" >
+	<input type="search"  name="find music" id="findmusic" placeholder="City, ST or ST"  class="text">
+</form>
+<div class="search" aria-hidden="true" data-icon="e" onClick="var hasher = $('#findmusic').val(); hasher = hasher.replace(/ ,/g, '_');hasher = hasher.replace(/, /g, '+');hasher=hasher.replace(/,/g,'+');hasher=hasher.replace(/, /g,'+');hasher = hasher.replace(/    /g, '_');hasher = hasher.replace(/   /g, '_');hasher = hasher.replace(/  /g, '_');hasher = hasher.replace (/ /g, '_');window.location.hash='#'+hasher"></div>
+</div>
+    <div style="clear:both"></div>
+    <div id="map-canvas"><div style="width:100px; margin:auto"><img src="loading.gif" alt="loading"/></div></div>
+    </div>
+    <div id="info-area">
+    </div>  </body>
+</html>

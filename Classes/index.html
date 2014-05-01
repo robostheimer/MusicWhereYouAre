@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href='http://fonts.googleapis.com/css?family=Indie+Flower|Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6v2xcmgqqW9cjp72GQhXi1FIaw1tdixs&libraries=places&sensor=true"></script>
+		<script type="text/javascript" src="/Scripts/jquery-1.7.1.js"></script>
+		<script type="text/javascript" src="/Scripts/jquery.history.js"></script>
+		<script type="text/javascript" src="http://cityblinking.com/MusicWhereYouAre/Classes/Class.js"></script>
+		<script>
+			
+		
+			
+		
+			
+			var artists = new artistsList();
+			artists.url = 'http://developer.echonest.com/api/v4/artist/search?api_key=3KFREGLKBDFLWSIEC&format=json&name=wilco&results=1&bucket=songs&bucket=biographies&bucket=id:spotify-WW&bucket=images&bucket=video&bucket=news&bucket=artist_location';
+			artists.handleIt(artists.url);
+			
+			var similar = new similarArtists();
+			similar.url = 'http://developer.echonest.com/api/v4/artist/similar?api_key=3KFREGLKBDFLWSIEC&format=json&name=wilco&results=10&&bucket=id:spotify-WW&bucket=images';
+			similar.handleIt(similar.url);
+			
+			
+			arr = []
+         arr[0] = "ab"
+         arr[1] = "abcdefgh"
+         arr[2] = "sdfds"
+         arr.sort(function(a,b){
+            console.log(a+':'+b)
+            return a.length>b.length
+         })
+       // document.write(arr)
+
+		</script>
+	<style>
+		body {font-family:"Lucida Sans Unicode",Arial}
+		#container{width:90%; margin:auto;}
+		
+	</style>
+	</head>
+	<body>
+		<div id="container">		
+			<div id = "song_holder"></div>
+	        <div id = "artist_holder"></div>
+	        <div id = "similar_holder"></div>
+		</div>
+	</body>
+</html>
