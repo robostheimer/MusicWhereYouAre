@@ -16,7 +16,8 @@ Music.spotify = '';
 			songsList.prototype = new Music();
 			songsList.prototype.constructor = songsList;
 			songsList.prototype.handleIt = function(url){;
-			$.getJSON(url, function(response)
+			//console.log('handling');
+				$.getJSON(url, function(response)
 				{ 
 					var song_str='';
 					//console.log(song_str);
@@ -35,10 +36,13 @@ Music.spotify = '';
 						$('#song_holder').append(jsongs.artist +': <a href="http://open.spotify.com/track/'+jsongs.spotify+'">'+jsongs.title+'</a> (id: '+jsongs.spotify+')<br>');
 						}	
 					}
+					//console.log(jsongs);
 				});
 														  };
 			
-			
+			//var songs= new songsList();
+			//songs.url = 'http://developer.echonest.com/api/v4/song/search?api_key=3KFREGLKBDFLWSIEC&format=json&results=100&min_latitude=38.7262&max_latitude=38.9757&min_longitude=-77.18599999999999&max_longitude=-76.9376&bucket=artist_location&bucket=id:spotify-WW&bucket=tracks&limit=true&&song_type=studio&sort=song_hotttnesss-desc&rank_type=relevance';
+			//songs.handleIt(songs.url);
 			
 			
 			//artistsList Object - child of the Music Object created above

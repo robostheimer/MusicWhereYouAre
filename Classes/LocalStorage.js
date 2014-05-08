@@ -1,4 +1,7 @@
-function addFavorite(id, spot_id) {
+//////This group of functions is used to  create favorites.
+
+///Stylistic changes - background; filling in star, etc in all spots (Playlist Box, Map infowindow and Favorite Box)
+		function addFavorite(id, spot_id) {
 				var addhash = '';
 
 				if (id.match('infobox_')) {
@@ -216,17 +219,16 @@ function addFavorite(id, spot_id) {
 			function addLS() {
 				var lsspot_arr = [];
 				$('#fav_holder').html('');
-				$('#fav_holder').append('<div class="spot_icon"  aria-hidden="true" data-icon="t" ></div><div><h4 style="font-size:1.35em;"><span style="color:#979797">Starred</span> Songs</h4></div> <div style="clear:both; margin-bottom:10px;"></div>');
+				$('#fav_holder').append('<div class="spot_icon"  aria-hidden="true" data-icon="t" ></div><div><h4 style="font-size:1.35em;"><span style="color:#979797">Starred</span> Songs</h4></div> <div style="clear:both; margin-bottom:10px;"></div>')
 				for (var i = 0; i < localStorage.length; i++) {
-					lsspot_arr.push(localStorage.getItem('key_song'+i).split('$$')[1].split('**')[0]);
 					if (i == (localStorage.length - 1)) {
 						if (jQuery.browser.mobile == false && !navigator.userAgent.match('iPad')) {
-							$('#fav_holder').append('<iframe theme="light" view="coverart"src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:' + lsspot_arr.toString() + '" frameborder="0" allowtransparency="true" height="80" width="300"></iframe>');
+							$('#fav_holder').append('<iframe theme="light" view="coverart"src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:' + lsspot_arr.toString() + '" frameborder="0" allowtransparency="true" height="80" width="300"></iframe>')
 						}
 					}
 				}
 				for (var i = 0; i < localStorage.length; i++) {
-					$('#fav_holder').append('<div class="red"><p class="info">' + localStorage.getItem('key_song'+i).split('$$')[0] + '</p><a href="http://open.spotify.com/track/' + localStorage.getItem('key_song'+i).split('$$')[1].split('**')[0] + '" target="_blank"><div class="spot_link_fav" id="spot_LS' + i + '" aria-hidden="true" data-icon="c" style="margin-left:5px;font-size:27px;"></div></a><a><div id="favorite_LS' + i + '" class="spot_link favorite favorite_on" title="' + localStorage.getItem('key_song'+i).split('$$')[1].split('**')[0] + '"  aria-hidden="true" data-icon="t" onclick="addFavorite($(this).attr(\'id\'),$(this).attr(\'title\'))"></div></a><a><div font-size:25px;" onclick=addInfo($(this).attr(\'id\')); id="info_LS' + i + '" class="spot_link information"  aria-hidden="true" data-icon="*"></div></a><div style="clear:both;margin-bottom:-15px;"></div></div>');
+					$('#fav_holder').append('<div class="red"><p class="info">' + localStorage.getItem('key_song'+i).split('$$')[0] + '</p><a href="https://embed.spotify.com/?uri=spotify:track:' + localStorage.getItem('key_song'+i).split('$$')[1].split('**')[0] + '" target="_blank"><div class="spot_link_fav" id="spot_LS' + i + '" aria-hidden="true" data-icon="c" style="margin-left:5px;font-size:27px;"></div></a><a><div id="favorite_LS' + i + '" class="spot_link favorite favorite_on" title="' + localStorage.getItem('key_song'+i).split('$$')[1].split('**')[0] + '"  aria-hidden="true" data-icon="t" onclick="addFavorite($(this).attr(\'id\'),$(this).attr(\'title\'))"></div></a><a><div font-size:25px;" onclick=addInfo($(this).attr(\'id\')); id="info_LS' + i + '" class="spot_link information"  aria-hidden="true" data-icon="*"></div></a><div style="clear:both;margin-bottom:-15px;"></div></div>');
 				}
 			}
 
