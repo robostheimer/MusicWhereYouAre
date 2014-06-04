@@ -17,9 +17,10 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+
 .clear_border{clear:both; border-bottom: 1px dotted #ececec;margin-top:5px;}
 
-div#contact {
+section#contact {
 	position: absolute;
 	top: 5px;
 	right: 5px;
@@ -27,18 +28,18 @@ div#contact {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
 }
-div#contact ul {
+section#contact ul {
 	margin: 0px;
 	padding: 0px;
 	margin-bottom: 5px;
 }
 
-div#contact ul li {
+section#contact ul li {
 	list-style-type: none;
 	display: inline;
 	margin-right: 7px;
 }
-div.attribute {
+section.attribute {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8px;
 	margin-top: 5px;
@@ -118,10 +119,24 @@ header {
 	float: left;
 	width: 150px;
 }
-section {
-	color: #ececec;
-	margin-left: 160px;
+.angular-google-map {
+  display: block;
+  height:inherit
+  }
+  
+ 
+
+/* fix for Twitter Bootstrap handling of responsive images */
+
+.angular-google-map img {
+    max-width: inherit;
 }
+
+.angular-google-map {
+    top: 80px;
+
+}
+ 
 #map-area {
 	height: 95%;
 	width: 100%;
@@ -129,12 +144,14 @@ section {
 #geolocation_alert {
 	margin: 15px;
 }
-#map-canvas {
+#map-canvas, .angular-google-map-container {
 	height: 100%;
-	margin: 15px;
-	margin-top: 0px;
-	border: 1px dashed #ececec
+	
 }
+
+#map-canvas{margin: 15px;
+	margin-top: 0px;
+	border: 1px dashed #ececec; height:100%}
 .info {/*color:black*/
 	max-width: 100px;
 	padding: 10px;
@@ -197,7 +214,7 @@ ul#chooser li, #chooser li div.inactive {
 	font-size:.8em;
 	
 	float: left;
-	display: none;
+	display: block;
 	background:#f3f3f3;
 	border-bottom: 2px solid #c53526;
 	width: 95%;
@@ -309,8 +326,8 @@ input {
 
 #genre_holder, #spot_holder, #fav_holder {
 	box-shadow: 5px 5px 50px #ececec;
-	width: 30%;
-	display: none;
+	width: 300px;
+	display: block;
 	position: absolute;
 	z-index: 10000;
 	border: 1px solid #dadada;
@@ -474,100 +491,105 @@ gm-style p.info {
 }
 
 .geomix {
-	background-image: url(genre_icons/Roadtrip_geomix_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/Roadtrip_geomix_sm.png);
 }
 .musicwhereyouare {
-	background-image: url(genre_icons/music_where_you_are_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/music_where_you_are_sm.png);
 }
 .folowwme {
-	background-image: url(genre_icons/follow_me_music_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/follow_me_music_sm.png);
 }
 .addtospot {
-	background-image: url(genre_icons/add_to_spot_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/add_to_spot_sm.png);
 }
 
+
 .avant_garde {
-	background-image: url(genre_icons/avant_garde_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/avant_garde_rw_sm.png);
 }
+
 .blues {
-	background-image: url(genre_icons/blues_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/blues_rw_sm.png);
 }
 
 .classic_rock {
-	background-image: url(genre_icons/classic_rock_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/classic_rock_rw_sm.png);
 }
 
 .classical {
-	background-image: url(genre_icons/classical_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/classical_rw_sm.png);
 }
 
 .country {
-	background-image: url(genre_icons/country_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/country_rw_sm.png);
 }
 .drama {
-	background-image: url(genre_icons/drama_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/drama_rw_sm.png);
 }
 .electronic {
-	background-image: url(genre_icons/electronica_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/electronica_rw_sm.png);
 }
 .folk {
-	background-image: url(genre_icons/folk_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/folk_rw_sm.png);
 }
 .hip-hop {
-	background-image: url(genre_icons/hip-hop_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/hip-hop_rw_sm.png);
 }
 .drama {
-	background-image: url(genre_icons/drama_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/drama_rw_sm.png);
 }
 .holiday {
 
-	background-image: url(genre_icons/holiday_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/holiday_rw_sm.png);
 }
 .indie {
 
-	background-image: url(genre_icons/indie_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/indie_rw_sm.png);
 }
 .jazz {
 
-	background-image: url(genre_icons/jazz_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/jazz_rw_sm.png);
 }
 .kids {
 
-	background-image: url(genre_icons/kids_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/kids_rw_sm.png);
 }
 .latin {
 
-	background-image: url(genre_icons/latin_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/latin_rw_sm.png);
 }
 .mic {
 
-	background-image: url(genre_icons/mic_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/mic_rw_sm.png);
 }
 .new_age {
 
-	background-image: url(genre_icons/new_age_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/new_age_rw_sm.png);
 }
 .pop {
 
-	background-image: url(genre_icons/pop_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/pop_rw_sm.png);
 }
 .punk {
-	background-image: url(genre_icons/punk_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/punk_rw_sm.png);
 }
 .rb {
 
-	background-image: url(genre_icons/r&b_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/r&b_rw_sm.png);
 }
 .rock {
 
-	background-image: url(genre_icons/rock_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/rock_rw_sm.png);
 }
 .soft_rock {
-	background-image: url(genre_icons/soft_rock_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/soft_rock_rw_sm.png);
 }
 .world {
 
-	background-image: url(genre_icons/world_rw_sm.png);
+	background-image: url(/MusicWhereYouAre/genre_icons/world_rw_sm.png);
+}
+#avant_garde_button:hover .avant_garde, #blues_button:hover .blues, #classic_rock_button:hover .classic_rock, #classical_button:hover .classical, #mic_button:hover .mic, #country_button:hover .country, #drama_button:hover .drama, #electronic_button:hover .electronic, #folk_button:hover .folk, #hip_hop_button:hover .hip-hop,  #holiday_button:hover .holiday, #indie_button:hover .indie, #jazz_button:hover .jazz, #kids_button:hover .kids, #latin_button:hover .latin, #new_age_button:hover .new_age, #rb_button:hover .rb, #pop_button:hover .pop, #rock_button:hover .rock, #soft_rock_button:hover .soft_rock, #world_button:hover .world{background-color:#c53526; background-position:-27px 0px}
+	
 }
 .on {
 	background-position: -27px -0px;
@@ -575,6 +597,7 @@ gm-style p.info {
 	/*border: 1px solid #ececec;*/
 	color:white;
 	}
+	
 .off {
 	background-position: 0px 0px;
 	background-color: #f3f3f3;
@@ -609,8 +632,8 @@ gm-style p.info {
 		width: 150px;
 	}
 
-	#genre_holder, fav_holder, #spot_holder {
-		width: 50%
+	ik, fav_holder, #spot_holder {
+		width: 300px
 	}
 	#search {
 		width: 61%;
@@ -737,7 +760,7 @@ padding-top: 7px;
 		cursor: pointer;
 	}
 	#genre_holder, fav_holder, #spot_holder {
-		width: 50%
+		width: 300px
 	}
 
 }
@@ -774,7 +797,7 @@ padding-top: 7px;
 	}
 
 	#genre_holder, #fav_holder, #spot_holder,  {
-		width: 70%
+		width: 300px
 	}
 
 	#findmusic {
@@ -823,7 +846,7 @@ border: 1px solid #ececec;
 	font-size:.8em;
 	
 	float: left;
-	display: none;
+	display: block;
 	background:#f3f3f3;
 	border-bottom: 2px solid #c53526;
 	width: 95%;
@@ -861,7 +884,7 @@ border: 1px solid #ececec;
 		margin-top: 5px
 	}
 	#genre_holder, #fav_holder, #spot_holder {
-		width: 30%
+		width: 300px
 	}
 	h4, #spot_holder .spot_icon {
 		font-family: 'Indie Flower', Arial;

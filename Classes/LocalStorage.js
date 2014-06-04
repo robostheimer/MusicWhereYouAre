@@ -221,6 +221,7 @@
 				$('#fav_holder').html('');
 				$('#fav_holder').append('<div class="spot_icon"  aria-hidden="true" data-icon="t" ></div><div><h4 style="font-size:1.35em;"><span style="color:#979797">Starred</span> Songs</h4></div> <div style="clear:both; margin-bottom:10px;"></div>')
 				for (var i = 0; i < localStorage.length; i++) {
+						lsspot_arr.push(localStorage.getItem('key_song'+i).split('$$')[1].split('**')[0])
 					if (i == (localStorage.length - 1)) {
 						if (jQuery.browser.mobile == false && !navigator.userAgent.match('iPad')) {
 							$('#fav_holder').append('<iframe theme="light" view="coverart"src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:' + lsspot_arr.toString() + '" frameborder="0" allowtransparency="true" height="80" width="300"></iframe>')
