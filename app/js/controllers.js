@@ -14,9 +14,8 @@ PlaylistControllers.controller('PlaylistData', ['$scope', '$http', '$sce',
 
 
 angular.module('MapControllers', [])
-	.controller('Geolocate', ['$scope','$window','$http', '$sce', function ($scope, $window, $http, $sce) {
+	.controller('Geolocate', ['$scope','$window','$http', '$sce', function ($scope, $window, $http, $sce ) {
   		
-		
 		$scope.getLocation = function () {
 		$scope.mapOptions={
 			center: new google.maps.LatLng($scope.currentLat, $scope.currentLong), 
@@ -74,6 +73,7 @@ angular.module('MapControllers', [])
 			$scope.long_min = $scope.currentLong-.5;
 			$scope.long_max = $scope.currentLong+.5         
 			$scope.spot_arr=[];
+			$scope.location_arr=[];
 			$scope.spot_str=''
 			$scope.url='http://developer.echonest.com/api/v4/song/search?api_key=3KFREGLKBDFLWSIEC&format=json&results=87&min_latitude='+$scope.lat_min+'&max_latitude='+$scope.lat_max+'&min_longitude='+$scope.long_min+'&max_longitude='+$scope.long_max+'&bucket=artist_location&bucket=id:spotify-WW&bucket=tracks&limit=true&&song_type=studio&sort=song_hotttnesss-desc&rank_type=relevance&bucket=song_currency';	
 			
@@ -83,16 +83,17 @@ angular.module('MapControllers', [])
 			for(var x=0; x<$scope.songs.length; x++ )
 			{
 				$scope.spot_arr.push($scope.songs[x].tracks[0].foreign_id.split(':')[2])
-			
+				$scope.location_arr.push($scope.songs[x].artist_location.latitude, $scope.songs[x].artist_location.longitude)
 			}
 			$scope.spot_str = 'https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE'+$scope.spot_arr.toString();
 			$scope.spot_str=$sce.trustAsResourceUrl($scope.spot_str);
-			
+			$scope.buildMap(lat, long, $scope.location_arr);
 			});
-			$scope.buildMap(lat, long);
+			
 		};
-		$scope.buildMap = function(lat, long)
+		$scope.buildMap = function(lat, long, arr)
 		{
+			console.log(arr)
 			$scope.map;
 				$scope.LatLng = new google.maps.LatLng(lat, long)
 	          	$scope.mapOptions={
@@ -116,7 +117,7 @@ angular.module('MapControllers', [])
 	
    
 }])
-	.directive('mwyaMap', function() {
+.directive('mwyaMap', function() {
     return {
       restrict: 'E',
       transclude: true,
@@ -126,39 +127,7 @@ angular.module('MapControllers', [])
 
 
 
-  function LoadMap($scope, $timeout, $log, $http, lat, long) {
-        // Enable the new Google Maps visuals until it gets enabled by default.
-    // See http://googlegeodevelopers.blogspot.ca/2013/05/a-fresh-new-look-for-maps-api-for-all.html
-   console.log(lat);
-    google.maps.visualRefresh = true;
-
-    versionUrl = window.location.host === "rawgithub.com" ? "http://rawgithub.com/nlaplante/angular-google-maps/master/package.json" : "/package.json";
-
-    $http.get(versionUrl).success(function (data) {
-        if (!data)
-            console.error("no version object found!!");
-        $scope.version = data.version;
-    });
-
-
-	$scope.center= {
-                latitude: 45,
-                longitude: -74
-           };
-     $scope.control = {};      
-     $scope.zoom = 5;  
-     $scope.options= {
-                disableDefaultUI: true,
-                panControl: false,
-                navigationControl: false,
-                scrollwheel: false,
-                scaleControl: false
-           };
-     $scope.refresh= function () {
-                $scope.map.control.refresh(origCenter);
-            } ;          
-    
-}
+  
 
 var InfoControllers = angular.module('InfoControllers', [])
 InfoControllers.controller('LoadInfo', ['$scope','$http',
