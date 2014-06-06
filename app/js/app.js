@@ -4,7 +4,7 @@
 
 var MusicWhereYouAreApp = angular.module('MusicWhereYouAreApp', [
   'ngRoute',
-  'PlaylistControllers',
+  //'PlaylistControllers',
   'MapControllers',
   'InfoControllers',
   'FavoritesControllers',
@@ -16,7 +16,7 @@ MusicWhereYouAreApp.config(['$routeProvider',
     $routeProvider.
       when('/playlist', {
         templateUrl: 'partials/playlist.html',
-        controller: 'PlaylistData'
+       // controller: 'PlaylistData'
       }).
        when('/favorites', {
         templateUrl: 'partials/favorites.html',
