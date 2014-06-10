@@ -5,10 +5,12 @@
 var MusicWhereYouAreApp = angular.module('MusicWhereYouAreApp', [
   'ngRoute',
   'PlaylistControllers',
-  'MapControllers',
+  'UI-Loader',
   'InfoControllers',
   'FavoritesControllers',
   'LinerNotesControllers',
+  'ui.utils',
+ 
    
 ]);
 
@@ -44,3 +46,5 @@ MusicWhereYouAreApp.config(['$routeProvider',
         redirectTo: '/home'
       });
   }]);
+
+

@@ -1,5 +1,5 @@
 function MAP(markers, title, lat_avg, long_avg) {
-
+	
 	this.markers = markers;
 	this.title = title;
 	this.lat_avg = lat_avg;

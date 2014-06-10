@@ -8,10 +8,12 @@
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>	
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/angular-route/angular-route.js"></script>
-		<script src="http://maps.googleapis.com/maps/api/js?libraries=weather,visualization&sensor=false&language=en&v=3.13"></script>
+ 		<script src="bower_components/ui-utils/ui-utils.min.js"></script>
+ 		<script src="http://maps.googleapis.com/maps/api/js?libraries=weather,visualization&sensor=false&language=en&v=3.13"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js" type="text/javascript"></script>
 		<script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
 		<script src="js/app.js"></script>
+		<script src="js/services.js"></script>		
 		<script src="js/controllers.js"></script>		
 		
 		
@@ -63,8 +65,9 @@
 		</ul>
 		<section id="geolocation_alert"></section>
 		<section id="map-area">
-			<div id="map-canvas"></div>
+			<div id="map-canvas"><div style="width:100px; margin:auto"><img src="/MusicWhereYouAre/loading.gif" alt="loading"></div></div>
 		</section>
+		
 		<div style="clear:both"></div>
 
 		<section class="attribute">
