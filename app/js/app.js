@@ -19,7 +19,7 @@ MusicWhereYouAreApp.config(['$routeProvider',
     $routeProvider.
       when('/playlist', {
         templateUrl: 'partials/playlist.html',
-       //controller: 'PlaylistData'
+       //controller: 'testcall'
       }).
        when('/favorites', {
         templateUrl: 'partials/favorites.html',
@@ -37,10 +37,11 @@ MusicWhereYouAreApp.config(['$routeProvider',
         templateUrl: 'partials/liner_notes.html',
         controller: 'WriteLinerNotes'
       }).
-      /*when('/home', {
-      	 templateUrl: 'partials/home.html',
-      	controller:'LoadMap'
-      }).*/
+     
+      when('/home', {
+      	 templateUrl: 'partials/map.html',
+      	controller:'Geolocate'
+      }).
     
       otherwise({
         redirectTo: '/home'
