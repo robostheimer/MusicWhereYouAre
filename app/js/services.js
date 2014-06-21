@@ -5,6 +5,7 @@
 //var app = angular.module('ofm.services', []);
 MusicWhereYouAreApp.factory("getLocation", ['$q', '$rootScope', '$http', '$sce', 'PlaylistCreate', 'MapCreate', 'HashCreate',
 function($q, $rootScope, $http, $sce, PlaylistCreate, MapCreate, HashCreate) {
+	
 	$rootScope.currentLat = 41.5
 	$rootScope.currentLong = -91.6
 	var deferred = $q.defer();
@@ -26,7 +27,8 @@ function($q, $rootScope, $http, $sce, PlaylistCreate, MapCreate, HashCreate) {
 		},
 
 		handle_geolocation_query : function(position) {
-			
+			$('#map-canvas').show();
+			$('#geolocation_alert').hide();
 			$rootScope.currentLat = (position.coords.latitude);
 			$rootScope.currentLong = (position.coords.longitude);
 			$rootScope.lat_min = $rootScope.currentLat - .25;
@@ -36,7 +38,7 @@ function($q, $rootScope, $http, $sce, PlaylistCreate, MapCreate, HashCreate) {
 			////Creates a promise that runs the Playlist creation Function and then the Map Create function.
 			var deferred = $q.defer();
 			
-			deferred.promise.then(PlaylistCreate.runPlaylist()).then(MapCreate.runMap());
+			deferred.promise.then(PlaylistCreate.runPlaylist()).then(MapCreate.runMap()).then(HashCreate.runHash());
 			deferred.resolve();
 
 		},
@@ -67,10 +69,8 @@ function($q, $rootScope, $http, $sce, PlaylistCreate, MapCreate, HashCreate) {
 					$rootScope.error = 'There was an unknown error.';
 					break;
 			}
-			alert($rootScope.error)
-			var deferred = $q.defer();
-			deferred.promise.then(PlaylistCreate.runPlaylist()).then(HashCreate.runHash());
-			deferred.resolve();
+			$('#geolocation_alert').show();
+			
 
 		},
 	};
@@ -78,22 +78,24 @@ function($q, $rootScope, $http, $sce, PlaylistCreate, MapCreate, HashCreate) {
 		checkGeoLocation : Geolocation._checkGeoLocation
 	};
 }])
-.directive('mwyaMap', function(getLocation, $q) {
+.directive('mwyaMap', function(getLocation, retrieveLocation, $q) {
 	return function($rootScope, elem)
 	{	
+		if(window.location.hash.split('/').length<=2)
+		{
+			
 		if (navigator.geolocation) {
 				/////If it is is runs the handle_geolocation_query or the handle Gelocation.handle)errors function if access to the Geolocation API is denied by the user
   			var deferred_geo = $q.defer();
-			deferred_geo.promise.then(getLocation.checkGeoLocation());
+			deferred_geo.promise.then().then(getLocation.checkGeoLocation());
 			deferred_geo.resolve();
 
 			} else {
 
-				var error = 'Your browser does not support geolocation.  Please type a city and sate into the form field. ';
-				alert(error)
+				$('#geolocation_alert').show();
 
 			}
-
+		}	
 
 };
 });
@@ -171,7 +173,7 @@ function($q, $rootScope, $http, $sce, $window, PlaylistCreate, MapCreate) {
 	var location = {
 		_runLocation : function(location) {
 			var location = location;
-
+			
 			if (location.split(' ').length > 1 && location.match(',')) {
 
 				///////city+full state//////
@@ -186,7 +188,8 @@ function($q, $rootScope, $http, $sce, $window, PlaylistCreate, MapCreate) {
 					
 					$http.get(lat_url).success(function(data) {
 						if (data.rows != null) {
-							
+							$('#map-canvas').show();
+							$('#geolocation_alert').hide();
 							$rootScope.currentLat = data.rows[0][0];
 							$rootScope.lat_min = data.rows[0][0] - .25;
 							$rootScope.lat_max = data.rows[(data.rows.length-1)][0] + .25;
@@ -214,10 +217,10 @@ function($q, $rootScope, $http, $sce, $window, PlaylistCreate, MapCreate) {
 								
 							}
 							else {
-							$('#map-canvas').html('<p style="margin:15px;">Add either a city and state abbreviation (Make sure to add a comma between the city and the State Abbreviation) or just the state abbreviation to the form above. Please check your spelling if you continue to receive this message.  For now, this project is only usable to find artist in the United States.</p>')
+							$('#geolocation_alert').show()
 						}
 						}).error(function(data, status, headers, config) {
-						alert('error');
+						$('#geolocation_alert').show()
 
 					});
 
@@ -233,7 +236,8 @@ function($q, $rootScope, $http, $sce, $window, PlaylistCreate, MapCreate) {
 					
 					$http.get(lat_url).success(function(data) {
 						if (data.rows != null) {
-							
+							$('#map-canvas').show();
+							$('#geolocation_alert').hide();
 							$rootScope.currentLat = data.rows[0][0];
 							$rootScope.lat_min = data.rows[0][0] - .25;
 							$rootScope.lat_max = data.rows[(data.rows.length-1)][0] + .25;
@@ -261,11 +265,10 @@ function($q, $rootScope, $http, $sce, $window, PlaylistCreate, MapCreate) {
 								
 							}
 							else {
-							$('#map-canvas').html('<p style="margin:15px;">Add either a city and state abbreviation (Make sure to add a comma between the city and the State Abbreviation) or just the state abbreviation to the form above. Please check your spelling if you continue to receive this message.  For now, this project is only usable to find artist in the United States.</p>')
+							$('#geolocation_alert').show();
 						}
 						}).error(function(data, status, headers, config) {
-						alert('error');
-
+						$('#geolocation_alert').show();
 					});
 				}
 
@@ -280,7 +283,8 @@ function($q, $rootScope, $http, $sce, $window, PlaylistCreate, MapCreate) {
 					location =toTitleCase(location);
 					$http.get(lat_url).success(function(data) {
 						if (data.rows != null) {
-							
+							$('#map-canvas').show();
+							$('#geolocation_alert').hide();
 							$rootScope.currentLat = data.rows[0][0];
 							$rootScope.lat_min = data.rows[0][0] - .25;
 							$rootScope.lat_max = data.rows[(data.rows.length-1)][0] + .25;
@@ -309,10 +313,10 @@ function($q, $rootScope, $http, $sce, $window, PlaylistCreate, MapCreate) {
 								
 							}
 							else {
-							$('#map-canvas').html('<p style="margin:15px;">Add either a city and state abbreviation (Make sure to add a comma between the city and the State Abbreviation) or just the state abbreviation to the form above. Please check your spelling if you continue to receive this message.  For now, this project is only usable to find artist in the United States.</p>')
+							$('#geolocation_alert').show()
 						}
 						}).error(function(data, status, headers, config) {
-						alert('error');
+						$('#geolocation_alert').show()
 
 					});
 							
@@ -331,7 +335,8 @@ function($q, $rootScope, $http, $sce, $window, PlaylistCreate, MapCreate) {
 					
 					$http.get(lat_url).success(function(data) {
 						if (data.rows != null) {
-							
+							$('#map-canvas').show();
+							$('#geolocation_alert').hide();							
 							$rootScope.currentLat = data.rows[0][0];
 							$rootScope.lat_min = data.rows[0][0] - .25;
 							$rootScope.lat_max = data.rows[(data.rows.length-1)][0] + .25;
@@ -359,10 +364,10 @@ function($q, $rootScope, $http, $sce, $window, PlaylistCreate, MapCreate) {
 								
 							}
 							else {
-							$('#map-canvas').html('<p style="margin:15px;">Add either a city and state abbreviation (Make sure to add a comma between the city and the State Abbreviation) or just the state abbreviation to the form above. Please check your spelling if you continue to receive this message.  For now, this project is only usable to find artist in the United States.</p>')
+							$('#geolocation_alert').show()
 						}
 						}).error(function(data, status, headers, config) {
-						alert('error');
+						$('#geolocation_alert').show()
 
 					});
 				}
@@ -403,31 +408,7 @@ function($q, $rootScope, $http, $sce) {
 	return {
 		runHash : Hashy._runHash
 	};
-	/*
-	 var Hashy = {
-	 _runHash: function()
-	 {
-
-	 var url = "https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+CityName%2C+StateAB+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+Lat+<=+" + $rootScope.currentLat + "+AND+Lat>=" +($rootScope.currentLat-.05) + "+AND+Long<=" + $rootScope.currentLong + "+AND+Long>=" + ($rootScope.currentLong-.05) + "&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0";
-
-	 $http.get(url).success(function(data) {
-	 if(data.rows!=null)
-	 {
-	 $rootScope.city = data.rows[0][0];
-	 $rootScope.state = data.rows[0][1];
-	 window.location.href ='#/'+ hashy+'/' + location;
-	 }
-	 else
-	 {
-	 hashy = "";
-	 }
-	 });
-	 }
-	 };
-	 return
-	 {
-	 runHash: Hashy._runHash
-	 };*/
+	
 
 }]);
 

@@ -20,7 +20,7 @@ MusicWhereYouAreApp.config(['$routeProvider',
     $routeProvider.
       when('/playlist', {
         templateUrl: 'partials/playlist.html',
-       controller: 'Geolocate'
+       controller: 'Hider'
       }).
        when('/favorites', {
         templateUrl: 'partials/favorites.html',
@@ -41,7 +41,8 @@ MusicWhereYouAreApp.config(['$routeProvider',
      
       when('/map', {
       	 templateUrl: 'partials/map.html',
-      	//controller:'Geolocate'
+      		controller: 'Hider'
+      
       }).
     when('/map/:location',
     {
@@ -54,6 +55,18 @@ MusicWhereYouAreApp.config(['$routeProvider',
     	templateUrl:'partials/playlist.html',
     	controller:'hashedLocation'
     }).
+    when('/favorites/:location', {
+        templateUrl: 'partials/favorites.html',
+        controller: 'LoadFav'
+      }).
+       when('/genres/:location', {
+        templateUrl: 'partials/genre.html',
+        //controller: 'PlaylistData'
+      }).
+        when('/info/:location', {
+        templateUrl: 'partials/info.html',
+        controller: 'LoadInfo'
+      }).
       otherwise({
         redirectTo: '/map'
       });

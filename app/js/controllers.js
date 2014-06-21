@@ -35,7 +35,7 @@ PlaylistControllers.controller('testcall', ['$scope', '$rootScope', 'PlaylistCre
   		
   		}
 }]);*/
-angular.module('UI-Loader', ['google-maps'])
+angular.module('UI-Loader', [])
 	.controller('Geolocate', ['$scope','$window','$http', '$sce', 'getLocation', function ($scope, $window, $http, $sce,getLocation ) {
   		
   		if($('#map-canvas').html().match('loading.gif"')||window.location.hash.split('/')<2)
@@ -43,17 +43,19 @@ angular.module('UI-Loader', ['google-maps'])
   		getLocation.checkGeoLocation();
   		
   		}
-}]);
+}])
+
+  	.controller('Hider', function()
+  	{
+  		$('#geolocation_alert').show();
+  		$('#map-canvas').hide();
+  		$('#spot_holder').hide();
+  	});	
 
 
 
-		
-angular.module('Maps',['google-maps'] )
-.controller('loadMap', [ '$scope', function( $scope)
-{
-	
 
-}]);
+
 
 
   
@@ -81,7 +83,7 @@ angular.module('Forms',[])
 	}])
 	.controller('hashedLocation', ['$scope', '$rootScope','retrieveLocation', function($scope, $rootScope, retrieveLocation){
 		
-			
+						
 			var location = window.location.hash;
 			location=location.replace(/\*/g,', ')
 			retrieveLocation.runLocation(replacePatterns(location));				
