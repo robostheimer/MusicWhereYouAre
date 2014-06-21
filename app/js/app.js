@@ -10,6 +10,7 @@ var MusicWhereYouAreApp = angular.module('MusicWhereYouAreApp', [
   'FavoritesControllers',
   'LinerNotesControllers',
   'ui.utils',
+  'Forms'
  
    
 ]);
@@ -19,7 +20,7 @@ MusicWhereYouAreApp.config(['$routeProvider',
     $routeProvider.
       when('/playlist', {
         templateUrl: 'partials/playlist.html',
-       //controller: 'testcall'
+       controller: 'Geolocate'
       }).
        when('/favorites', {
         templateUrl: 'partials/favorites.html',
@@ -38,14 +39,37 @@ MusicWhereYouAreApp.config(['$routeProvider',
         controller: 'WriteLinerNotes'
       }).
      
-      when('/home', {
+      when('/map', {
       	 templateUrl: 'partials/map.html',
-      	controller:'Geolocate'
+      	//controller:'Geolocate'
       }).
-    
+    when('/map/:location',
+    {
+    	templateUrl:'partials/map.html',
+    	controller:'hashedLocation'
+    	
+    }).
+     when('/playlist/:location',
+    {
+    	templateUrl:'partials/playlist.html',
+    	controller:'hashedLocation'
+    }).
       otherwise({
-        redirectTo: '/home'
+        redirectTo: '/map'
       });
   }]);
 
 
+MusicWhereYouAreApp.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});

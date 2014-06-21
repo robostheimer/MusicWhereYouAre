@@ -1,3 +1,6 @@
+@charset "UTF-8";
+/* CSS Document */
+
 @font-face {
 	font-family: 'MusicWhereIAM';
 	src: url('/fonts/MusicWhereIAM.eot?w8796i');
@@ -909,7 +912,8 @@ border: 1px solid #ececec;
 		height: 100%;
 		margin: 15px;
 		margin-top: 0px;
-		border: 1px dashed #ececec
+		border: 1px dashed #ececec;
+		display:block;
 	}
 	#geolocation_alert {
 		margin: 5px;

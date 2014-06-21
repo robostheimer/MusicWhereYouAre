@@ -17,17 +17,77 @@ PlaylistControllers.controller('testcall', ['$scope', '$rootScope', 'PlaylistCre
 			deferred.resolve();
 			}]);
 
-
-angular.module('UI-Loader', [])
+/*angular.module('UI-Loader', ['google-maps'])
+	.controller('Geolocate', ['$scope','$window','$http', '$sce', 'getLocation', '$rootScope','$q', function ($scope, $window, $http, $sce,getLocation, 			 $q, $rootScope ) {
+  		
+  		if($('#map-canvas').html().match('loading.gif"')||window.location.hash.split('/')<2)
+  		{
+  		var deferred_geo = $q.defer();
+  		deferred_geo.promise.
+  		then
+  		(
+  			getLocation.checkGeoLocation()
+  		).
+  		then(
+  			loadMap($rootScope.currentLat, $rootScope.currentLong)
+    		)
+  		
+  		
+  		}
+}]);*/
+angular.module('UI-Loader', ['google-maps'])
 	.controller('Geolocate', ['$scope','$window','$http', '$sce', 'getLocation', function ($scope, $window, $http, $sce,getLocation ) {
   		
-  		if($('#map-canvas').html().match('MusicWhereYouAre/loading.gif" alt="loading"'))
+  		if($('#map-canvas').html().match('loading.gif"')||window.location.hash.split('/')<2)
   		{
   		getLocation.checkGeoLocation();
+  		
   		}
 }]);
-  
 
+
+
+		
+angular.module('Maps',['google-maps'] )
+.controller('loadMap', [ '$scope', function( $scope)
+{
+	
+
+}]);
+
+
+  
+angular.module('Forms',[])
+	.controller('formController', ['$scope', '$rootScope','retrieveLocation','getLocation','$q','HashCreate', function($scope, $rootScope, retrieveLocation, getLocation, $q, HashCreate){
+		
+		$scope.controlForm = function(location)
+		{
+			
+			if(location==null || location=="")
+			{
+			var deferred_loc = $q.defer();
+			deferred_loc.promise.then(getLocation.checkGeoLocation()).then(HashCreate.runHash());
+			deferred_loc.resolve();		
+			}
+			else
+			{	
+			retrieveLocation.runLocation(replacePatterns(location));				
+			}
+			
+		};
+		
+    
+    
+	}])
+	.controller('hashedLocation', ['$scope', '$rootScope','retrieveLocation', function($scope, $rootScope, retrieveLocation){
+		
+			
+			var location = window.location.hash;
+			location=location.replace(/\*/g,', ')
+			retrieveLocation.runLocation(replacePatterns(location));				
+			
+		
+	}]);
 var InfoControllers = angular.module('InfoControllers', [])
 InfoControllers.controller('LoadInfo', ['$scope','$http',
   function($scope, $http) {
@@ -47,3 +107,21 @@ LinerNotesControllers.controller('WriteLinerNotes', ['$scope','$http',
   function($scope, $http) {
   	alert('liner notes')
   }]);   
+
+
+function replacePatterns(str) {
+	str = str.replace('#/map/','')
+	str = str.replace('#/playlist/','');
+	str = str.replace(/_/g, ' ');
+	str = str.replace(/St. /i, 'Saint ');
+	str = str.replace(/St /i, 'Saint ');
+	str = str.replace('New York, ', 'New York City, ');
+
+	return str;
+}
+
+
+function toTitleCase(str)
+{
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}

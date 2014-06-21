@@ -25,7 +25,7 @@
     <link href="assets/stylesheets/example.css" rel="stylesheet" type="text/css">
 </head>
 
-<body ng-controller="controller">
+<body >
 <!--	You can use either a div having class 'google-map' or the '<google-map>' element; in
 	the latter case, uncomment the style above to make sure the custom elements gets block display	-->
 <div class="page-title ">
@@ -35,7 +35,7 @@
     <div class="row">
         <button class="col-md-2 btn btn-success" ng-click="map.refresh()">Refresh Map</button>
     </div>
-    <div class="row">
+    <div class="row" ng-controller="controller">
         <google-map class="col-md-12"
                     center="map.center"
                     zoom="map.zoom"

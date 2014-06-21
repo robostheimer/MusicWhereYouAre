@@ -14,8 +14,10 @@
 		<script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
 		<script src="js/app.js"></script>
 			
-		<script src="js/controllers.js"></script>		
-		<script src="js/services.js"></script>	
+				
+		<script src="js/services.js"></script>
+		<script src="js/controllers.js"></script>
+		<script src="js/filters.js"></script>	
 		
 	</head>
 	<body>
@@ -45,12 +47,12 @@
 		<header>
 
 		</header>
-		<section id="whereyouat">
-			<form id="search" name="spot" method="post" >
-				<input type="text"  name="find music" id="findmusic" placeholder="City, ST or ST"  class="text"  onKeyDown="if(event.keyCode==13){var hasher = $('#findmusic').val(); hasher = hasher.replace(/ ,/g, '_');hasher = hasher.replace(/, /g, '+');hasher=hasher.replace(/,/g,'+');hasher=hasher.replace(/, /g,'+');hasher = hasher.replace(/    /g, '_');hasher = hasher.replace(/   /g, '_');hasher = hasher.replace(/  /g, '_');hasher = hasher.replace (/ /g, '_');window.location.hash='#'+hasher};">
+		<section id="whereyouat" ng-controller="formController">
+			<form novalidate class="simple-form" id="search" >
+					<input type="text"  name="find music" id="findmusic" placeholder="City, ST or ST"  class="text"  ng-model="location" ng-enter="controlForm(location)">
 			</form>
-
-			<div class="search"  aria-hidden="true" data-icon="e" onClick="var hasher = $('#findmusic').val(); hasher = hasher.replace(/ ,/g, '_');hasher = hasher.replace(/, /g, '+');hasher=hasher.replace(/,/g,'+');hasher=hasher.replace(/, /g,'+');hasher = hasher.replace(/    /g, '_');hasher = hasher.replace(/   /g, '_');hasher = hasher.replace(/  /g, '_');hasher = hasher.replace (/ /g, '_');window.location.hash='#'+hasher"></div>
+			<div>{{location }}</div>
+			<div class="search"  aria-hidden="true" data-icon="e" ng-click="controlForm(location)" ></div>
 
 		</section>
 
@@ -65,7 +67,7 @@
 		</ul>
 		<section id="geolocation_alert"></section>
 		<section id="map-area">
-			<div id="map-canvas"><div style="width:100px; margin:auto"><img src="/MusicWhereYouAre/loading.gif" alt="loading"</div>
+			<div mwya-map id='map-canvas'><div style="width:100px; margin:auto"><img src="/MusicWhereYouAre/loading.gif" alt="loading"/></div></div>
 		</section>
 		
 		<div style="clear:both"></div>
