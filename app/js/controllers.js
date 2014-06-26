@@ -40,7 +40,7 @@ angular.module('UI-Loader', [])
   		
   		if($('#map-canvas').html().match('loading.gif"')||window.location.hash.split('/')<2)
   		{
-  		getLocation.checkGeoLocation();
+  		//	getLocation.checkGeoLocation();
   		
   		}
 }])
@@ -50,6 +50,7 @@ angular.module('UI-Loader', [])
   		$('#geolocation_alert').show();
   		$('#map-canvas').hide();
   		$('#spot_holder').hide();
+  		
   	});	
 
 
@@ -68,8 +69,7 @@ angular.module('Forms',[])
 			if(location==null || location=="")
 			{
 			var deferred_loc = $q.defer();
-			deferred_loc.promise.then(getLocation.checkGeoLocation()).then(HashCreate.runHash());
-			deferred_loc.resolve();		
+			getLocation.checkGeoLocation()
 			}
 			else
 			{	
@@ -111,6 +111,10 @@ LinerNotesControllers.controller('WriteLinerNotes', ['$scope','$http',
   }]);   
 
 
+
+/////////////////Helper Functions////////////////////
+
+
 function replacePatterns(str) {
 	str = str.replace('#/map/','')
 	str = str.replace('#/playlist/','');
@@ -121,7 +125,13 @@ function replacePatterns(str) {
 
 	return str;
 }
-
+function locationReplace(str)
+{
+	str = str.replace(', ', '*');
+	str = str.replace(',', '*');
+	str = str.replace(/ /g, '_');
+	return str
+}
 
 function toTitleCase(str)
 {

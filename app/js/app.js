@@ -41,7 +41,7 @@ MusicWhereYouAreApp.config(['$routeProvider',
      
       when('/map', {
       	 templateUrl: 'partials/map.html',
-      		controller: 'Hider'
+      	controller: 'Hider'
       
       }).
     when('/map/:location',

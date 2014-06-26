@@ -17,6 +17,7 @@
 				
 		<script src="js/services.js"></script>
 		<script src="js/controllers.js"></script>
+		<script src="js/directives.js"></script>	
 		<script src="js/filters.js"></script>	
 		
 	</head>
@@ -24,7 +25,7 @@
 
 		<div ng-view></div>
 		<section id="icon_holder">
-			<div class="open_div" aria-hidden="true" data-icon="W"></div>
+			<a ng-href="{{genre}}"><div class="open_div" aria-hidden="true" data-icon="W"></div></a>
 			<div class="open_div_spot" aria-hidden="true" data-icon="T"></div>
 			<div class="open_div_fav" aria-hidden="true" data-icon="t"></div>
 		</section>
@@ -51,7 +52,6 @@
 			<form novalidate class="simple-form" id="search" >
 					<input type="text"  name="find music" id="findmusic" placeholder="City, ST or ST"  class="text"  ng-model="location" ng-enter="controlForm(location)">
 			</form>
-			<div>{{location }}</div>
 			<div class="search"  aria-hidden="true" data-icon="e" ng-click="controlForm(location)" ></div>
 
 		</section>
@@ -67,7 +67,8 @@
 		</ul>
 		<section id="geolocation_alert"><p>Choose a City and State from the form below or enable geolocation on your device.</p></section>
 		<section id="map-area">
-			<div mwya-map id='map-canvas' style="display:none"><div style="width:100px; margin:auto"><img src="/MusicWhereYouAre/loading.gif" alt="loading"/></div></div>
+			<div mwya-map='mwya-map' id='map-canvas' style="display:block"><div style="width:100px; margin:auto"><img src="/MusicWhereYouAre/loading.gif" alt="loading"/></div></div>
+			<div mwya-marker='mwya-marker'></div>
 		</section>
 		
 		<div style="clear:both"></div>

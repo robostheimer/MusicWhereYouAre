@@ -153,7 +153,7 @@ header {
 }
 
 #map-canvas{margin: 15px;
-	margin-top: 0px;
+	margin-top: 15px;
 	border: 1px dashed #ececec; height:100%}
 .info {/*color:black*/
 	max-width: 100px;
@@ -911,7 +911,7 @@ border: 1px solid #ececec;
 	#map-canvas {
 		height: 100%;
 		margin: 15px;
-		margin-top: 0px;
+		margin-top: 10px;
 		border: 1px dashed #ececec;
 		display:block;
 	}
