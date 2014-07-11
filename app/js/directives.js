@@ -23,9 +23,38 @@ MusicWhereYouAreApp.directive('mwyaMap', function(getLocation) {
 };
 
 });
-MusicWhereYouAreApp.directive('mwyaMarker', function(getLocation) {
-	return function($rootScope)
-	{
-		
-	};
-	});	
+MusicWhereYouAreApp.directive('buttonToggle', function() {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function($scope, element, attr, ctrl) {
+            var classToToggle = attr.buttonToggle;
+            element.bind('click', function() {
+                var checked = ctrl.$viewValue;
+                $scope.$apply(function(scope) {
+                    ctrl.$setViewValue(!checked);
+                });
+            });
+
+            $scope.$watch(attr.ngModel, function(newValue, oldValue) {
+                newValue ? element.addClass(classToToggle) : element.removeClass(classToToggle);
+            });
+        }
+    };
+});
+
+	
+
+MusicWhereYouAreApp.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});

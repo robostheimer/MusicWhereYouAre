@@ -2,6 +2,7 @@
 <html lang="en" ng-app="MusicWhereYouAreApp">
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1">
 		<title>Music Where You Are Angular</title>
 		<link href='http://fonts.googleapis.com/css?family=Indie+Flower|Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
 		<link rel ="stylesheet" href="/MusicWhereYouAre/style.css">
@@ -10,28 +11,28 @@
 		<script src="bower_components/angular-route/angular-route.js"></script>
  		<script src="bower_components/ui-utils/ui-utils.min.js"></script>
  		<script src="http://maps.googleapis.com/maps/api/js?libraries=weather,visualization&sensor=false&language=en&v=3.13"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js" type="text/javascript"></script>
-		<script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
 		<script src="js/app.js"></script>
-			
-				
 		<script src="js/services.js"></script>
 		<script src="js/controllers.js"></script>
 		<script src="js/directives.js"></script>	
 		<script src="js/filters.js"></script>	
-		
+		<style>
+		section#contact{position: absolute;top: 5px;right: 5px;margin: 0px;font-family: Arial, Helvetica, sans-serif;font-size: 11px;}
+		section#contact ul li{list-style-type: none;display: inline;margin-right: 7px;}
+		section#contact ul{margin: 0px;padding: 0px;margin-bottom: 5px;}
+		</style>
 	</head>
-	<body>
+	<body >
 
-		<div ng-view></div>
+	
 		<section id="icon_holder">
-			<a ng-href="{{genre}}"><div class="open_div" aria-hidden="true" data-icon="W"></div></a>
-			<div class="open_div_spot" aria-hidden="true" data-icon="T"></div>
-			<div class="open_div_fav" aria-hidden="true" data-icon="t"></div>
+			<a ng-href="#/genres/{{location_link}}"><div class="open_div" aria-hidden="true" data-icon="W"></div></a>
+			<a ng-href="#/playlist/{{location_link}}"><div class="open_div_spot" aria-hidden="true" data-icon="T"></div></a>
+			<a ng-href="#/favorites/{{location_link}}"><div class="open_div_fav" aria-hidden="true" data-icon="t"></div></a>
 		</section>
 
 		<!--<div class="genre" aria-hidden="true" data-icon="C"></div>
-		<div class="genre" aria-hidden="true" data-icon="D"></div>
+		<div class="genre" aria-hidden="true" data-icon="D"></div>/Users/rostheim/Google Drive/WEBSITE/MusicWhereYouAre/app
 		<div class="genre" aria-hidden="true" data-icon="M"></div>-->
 		
 		<section id="contact">
@@ -53,6 +54,7 @@
 					<input type="text"  name="find music" id="findmusic" placeholder="City, ST or ST"  class="text"  ng-model="location" ng-enter="controlForm(location)">
 			</form>
 			<div class="search"  aria-hidden="true" data-icon="e" ng-click="controlForm(location)" ></div>
+			
 
 		</section>
 
@@ -65,10 +67,11 @@
 		<li class="folowwme inactive" id="follow_me" ></li>
 		-->
 		</ul>
+			<div ng-view></div>
 		<section id="geolocation_alert"><p>Choose a City and State from the form below or enable geolocation on your device.</p></section>
 		<section id="map-area">
 			<div mwya-map='mwya-map' id='map-canvas' style="display:block"><div style="width:100px; margin:auto"><img src="/MusicWhereYouAre/loading.gif" alt="loading"/></div></div>
-			<div mwya-marker='mwya-marker'></div>
+			
 		</section>
 		
 		<div style="clear:both"></div>

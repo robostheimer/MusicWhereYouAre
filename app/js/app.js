@@ -4,14 +4,13 @@
 
 var MusicWhereYouAreApp = angular.module('MusicWhereYouAreApp', [
   'ngRoute',
-  'PlaylistControllers',
+  'Genre',
   'UI-Loader',
   'InfoControllers',
   'FavoritesControllers',
   'LinerNotesControllers',
   'ui.utils',
   'Forms'
- 
    
 ]);
 
@@ -20,16 +19,17 @@ MusicWhereYouAreApp.config(['$routeProvider',
     $routeProvider.
       when('/playlist', {
         templateUrl: 'partials/playlist.html',
-       controller: 'Hider'
+       //controller: 'locationHash'
       }).
        when('/favorites', {
         templateUrl: 'partials/favorites.html',
         controller: 'LoadFav'
       }).
         when('/genres', {
-        templateUrl: 'partials/genre.html',
+        templateUrl: 'partials/genres.html',
         //controller: 'PlaylistData'
       }).
+       
        when('/info', {
         templateUrl: 'partials/info.html',
         controller: 'LoadInfo'
@@ -41,7 +41,7 @@ MusicWhereYouAreApp.config(['$routeProvider',
      
       when('/map', {
       	 templateUrl: 'partials/map.html',
-      	controller: 'Hider'
+      	controller: 'Geolocate'
       
       }).
     when('/map/:location',
@@ -55,34 +55,31 @@ MusicWhereYouAreApp.config(['$routeProvider',
     	templateUrl:'partials/playlist.html',
     	controller:'hashedLocation'
     }).
+     when('/genres/:location',
+    {
+    	templateUrl:'partials/genres.html',
+    	controller:'GenreController'
+    }).
+  
     when('/favorites/:location', {
         templateUrl: 'partials/favorites.html',
         controller: 'LoadFav'
       }).
-       when('/genres/:location', {
-        templateUrl: 'partials/genre.html',
-        //controller: 'PlaylistData'
-      }).
+    
         when('/info/:location', {
         templateUrl: 'partials/info.html',
         controller: 'LoadInfo'
       }).
+      
+   
+    when('/genres/:location/:genre',
+    {
+    	templateUrl:'partials/genres.html',
+    	controller:'GenreController'
+    }).
       otherwise({
         redirectTo: '/map'
       });
   }]);
 
 
-MusicWhereYouAreApp.directive('ngEnter', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if(event.which === 13) {
-                scope.$apply(function (){
-                    scope.$eval(attrs.ngEnter);
-                });
-
-                event.preventDefault();
-            }
-        });
-    };
-});
