@@ -9,11 +9,12 @@ function Hasher(hash) {
 	if (hash.split('+').length == 2) {
 		
 		var qs1 = qs_arr[0].replace('#','').toUpperCase().split('&')[0];
+		
 		if (qs1.length > 2) {
 			qs1 = qsParser(qs1);
 			long_querystring = 'https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Long,State+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+State+%3D+%27' + qs1 + '%27+ORDER%20BY+Long&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0';
 			lat_querystring = 'https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Lat+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+State+%3D+%27' + qs1 + '%27+ORDER%20BY+Lat&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0';
-
+			
 		} else {
 			long_querystring = 'https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Long,State+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+%27' + qs1 + '%27+ORDER%20BY+Long&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0';
 			lat_querystring = 'https://www.googleapis.com/fusiontables/v1/query?sql=SELECT+Lat+FROM+1pEQI6OP8JTmqtmTZSC60jjP68joczfqrjVKLvNQ+WHERE+StateAB+%3D+%27' + qs1 + '%27+ORDER%20BY+Lat&key=AIzaSyBBcCEirvYGEa2QoGas7w2uaWQweDF2pi0';

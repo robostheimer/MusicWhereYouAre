@@ -21,22 +21,25 @@ LS.LSString = '';
 function historyLoad(hash) {
 	
 	if (hash) {
-		console.log(hash);
+		
 		map.states = 'AL-Alabama,AK-Alaska,AZ-Arizona,AR-Arkansas,CA-California,CO-Colorado,CT-Connecticut,DE-Delaware,FL-Florida,GA-Georgia,H-IHawaii,ID-Idaho,IL-Illinois,IN-Indiana,IA-Iowa,KS-Kansas,KY-Kentucky,LA-Louisiana,ME-Maine,MD-Maryland,MA-Massachusetts,MI-Michigan,MN-Minnesota,MS-Mississippi,MO-Missouri,MT-Montana,NE-Nebraska,NV-Nevada,NH-New Hampshire,NJ-New Jersey,NM-New Mexico,NY-New York,NC-North Carolina,ND-North Dakota,OH-Ohio,OK-Oklahoma,OR-Oregon,PA-Pennsylvania,RI-Rhode Island,SC-South Carolina,SD-South Dakota,TN-Tennessee,TX-Texas,UT-Utah,VT-Vermont,VA-Virginia,WA-Washington,WV-West Virginia,WI-Wisconsin,WY-Wyoming,DC-Washington DC';
 map.statesSplit = map.states.split(',')	
 					for (var o=0; o<map.statesSplit.length; o++)
 					{
-							
-						if(map.statesSplit[o].match(hash.split('&&')[0].replace(/_/g, ' ')))
+						
+			
+						if(map.statesSplit[o].match(hash.toUpperCase().split('&&')[0].replace(/_/g, ' ')))
 						{
-							map.stateAB = map.statesSplit[o].split('-')[0]
+							
+							map.stateAB = map.statesSplit[o].split('-')[0];
 							map.state = map.statesSplit[o].split('-')[1];
+							
 							
 						}
 					}
 	
 		$('#spot_holder').html('<div class="spot_icon"  aria-hidden="true" data-icon="T" ></div><div id="spot_headline"><h4><span style="color:#979797">Your</span> GeoMix</h4>  </div><div>  <div style="clear:both; margin-bottom:10px;"></div>');
-		map.hash=hash;
+		
 		if (hash.match('style=')) {
 
 			

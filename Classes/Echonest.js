@@ -71,9 +71,9 @@ function EchonestJSON(arr, multiple)
 						
 						else if(!window.location.hash.replace('#','').match(/\+/g)&&(locationArr[i].location.match(map.state)||locationArr[i].location.match(map.stateAB))) 										{
 							
-									console.log(map.stateAB);
 									
-									//map.fusion_songs_str += response.response.songs[i].title.replace(/\W/g, ' ') + ',';
+									
+									songs_str += response.response.songs[i].title.replace(/\W/g, ' ') + ',';
 									//var fusion_artist_str += cleanStr(artistArr[i], /\W/g)+',';
 									var lat = locationArr[i].latitude;
 									var long = locationArr[i].longitude;
@@ -105,7 +105,7 @@ function EchonestJSON(arr, multiple)
 					else if(window.location.hash.replace('#','').match(/\+/g))
 					{
 									
-									//map.fusion_songs_str += response.response.songs[i].title.replace(/\W/g, ' ') + ',';
+									songs_str += response.response.songs[i].title.replace(/\W/g, ' ') + ',';
 									//var fusion_artist_str += cleanStr(artistArr[i], /\W/g)+',';
 									var lat = locationArr[i].latitude;
 									var long = locationArr[i].longitude;

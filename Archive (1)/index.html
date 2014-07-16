@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="initial-scale=1">
+		<link href='http://fonts.googleapis.com/css?family=Indie+Flower|Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6v2xcmgqqW9cjp72GQhXi1FIaw1tdixs&libraries=places&sensor=true"></script>
+		<script type="text/javascript" src="/Scripts/jquery-1.7.1.js"></script>
+		<script type="text/javascript" src="/Scripts/jquery.history.js"></script>
+		<script type="text/javascript" src="Classes/Init.js"></script>
+		<script type="text/javascript" src="Classes/Map.js"></script>
+		<script type="text/javascript" src="Classes/Class.js"></script>
+		<script type="text/javascript" src="Classes/Echonest.js"></script>
+		<script type="text/javascript" src="Classes/FusionTables.js"></script>
+		<script type="text/javascript" src="Classes/LocalStorage.js"></script>
+		<script type="text/javascript" src="Classes/Wiki.js"></script>
+		<script type="text/javascript" src="Classes/GenericFunctions.js"></script>
+		
+		
+		<link href="style.css" rel="stylesheet" type="text/css">
+
+	
+		<script src="https://apis.google.com/js/client.js?onload=initialize"></script>
+
+		</script>
+		<title>Music Where You Are</title>
+	</head>
+	<body>
+		<div id="icon_holder">
+			<div class="open_div" aria-hidden="true" data-icon="W"></div>
+			<div class="open_div_spot" aria-hidden="true" data-icon="T"></div>
+			<div class="open_div_fav" aria-hidden="true" data-icon="t"></div>
+		</div>
+		<div id="genre_holder">
+			<div style="clear:both; margin-bottom:10px;"></div>
+
+			<div class="genre avant_garde off hider" id="avant_garde" ></div>
+			<div class="label">
+				Avant Garde
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre blues off hider" id="blues"></div>
+			<div class="label">
+				Blues
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre classic_rock off hider" id="classic_rock" ></div>
+			<div class="label">
+				Classic Rock
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre classical off hider" id="classical" ></div>
+			<div class="label">
+				Classical
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre mic off hider" id="comedy"></div>
+			<div class="label">
+				Comedy
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre country off hider" id="country" ></div>
+			<div class="label">
+				Country/Alt Country
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre drama off hider" id="drama" ></div>
+			<div class="label">
+				Drama
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre electronic off hider" id="electronic"></div>
+			<div class="label">
+				Electronic
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre folk off hider" id="folk" ></div>
+			<div class="label">
+				Folk
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre hip-hop off hider" id="hip_hop"></div>
+			<div class="label">
+				Hip Hop
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre holiday off hider" id="holiday"></div>
+			<div class="label">
+				Holiday
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre indie off hider" id="indie_rock" ></div>
+			<div class="label">
+				Indie
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre jazz off hider" id="jazz"></div>
+			<div class="label">
+				Jazz
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre kids off hider" id="children_music"></div>
+			<div class="label">
+				Children's Music
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre latin off hider" id="latin"></div>
+			<div class="label">
+				Latin
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre new_age off hider" id="new_age" ></div>
+			<div class="label">
+				New Age
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre rb off hider" id="motown"></div>
+			<div class="label">
+				Motown
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre pop off hider" id="pop" ></div>
+			<div class="label">
+				Pop
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre rock off hider" id="rock"></div>
+			<div class="label">
+				Rock
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre soft_rock off hider" id="soft_rock"></div>
+			<div class="label">
+				Soft Rock
+			</div>
+			<div style="clear:both"></div>
+			<div class="genre world off hider" id="world" ></div>
+			<div class="label">
+				World
+			</div>
+			<div style="clear:both"></div>
+		</div>
+		<div id="spot_holder">
+
+		</div>
+		<div id="fav_holder"></div>
+		<div id="info-area"></div>
+
+	
+
+		<!--<div class="genre" aria-hidden="true" data-icon="C"></div>
+		<div class="genre" aria-hidden="true" data-icon="D"></div>
+		<div class="genre" aria-hidden="true" data-icon="M"></div>-->
+
+		<div id="contact">
+			<ul>
+				<li>
+					<a href="mailto:robert.ostheimer@cityblinking.com"><img border="none" src="genre_icons/mail.svg" alt="email"/></a>
+				</li>
+				<li>
+					<a href="https://twitter.com/robostheimer" target="_blank"><img border="none" src="genre_icons/twitter.svg" alt="email"/></a>
+				</li>
+			</ul>
+		</div>
+
+		<header>
+
+			<!-- <section><p>Discover Music &nbsp;&nbsp;&nbsp;where you are... &nbsp;&nbsp;&nbsp;Where you are going... &nbsp;&nbsp;&nbsp;Where you want to be.</p> </section>
+			-->
+		</header>
+		<div id="whereyouat">
+			<form id="search" name="spot" method="post" >
+				<input type="text"  name="find music" id="findmusic" placeholder="City, ST or ST"  class="text"  onKeyDown="if(event.keyCode==13){var hasher = $('#findmusic').val(); hasher = hasher.replace(/ ,/g, '_');hasher = hasher.replace(/, /g, '+');hasher=hasher.replace(/,/g,'+');hasher=hasher.replace(/, /g,'+');hasher = hasher.replace(/    /g, '_');hasher = hasher.replace(/   /g, '_');hasher = hasher.replace(/  /g, '_');hasher = hasher.replace (/ /g, '_');window.location.hash='#'+hasher};">
+			</form>
+
+			<div class="search"  aria-hidden="true" data-icon="e" onClick="var hasher = $('#findmusic').val(); hasher = hasher.replace(/ ,/g, '_');hasher = hasher.replace(/, /g, '+');hasher=hasher.replace(/,/g,'+');hasher=hasher.replace(/, /g,'+');hasher = hasher.replace(/    /g, '_');hasher = hasher.replace(/   /g, '_');hasher = hasher.replace(/  /g, '_');hasher = hasher.replace (/ /g, '_');window.location.hash='#'+hasher"></div>
+
+		</div>
+
+		<div style="clear:both"></div>
+
+		<!-- <ul id="chooser">
+
+		<li class="musicwhereyouare active" id="music_where" ></li>
+		<li class="geomix inactive" id="geomix" ></li>
+		<li class="folowwme inactive" id="follow_me" ></li>
+		-->
+		</ul>
+		<div id="geolocation_alert"></div>
+		<div id="map-area">
+			<div id="map-canvas">
+				<div style="width:100px; margin:auto"><img src="loading.gif" alt="loading"/>
+				</div>
+			</div>
+		</div>
+		<div style="clear:both"></div>
+
+		<div class="attribute">
+			Note: This product uses a SPOTIFY API but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group.
+			<br/>
+			Powered By: <img src="genre_icons/echonest.svg" alt="echonest"/><img src="genre_icons/wikimedia.png" alt="wikimedia"/><img src="genre_icons/spotify_green.svg" alt="spotify"/>
+		</div>
+<script>
+</script>
+	</body>
+</html>

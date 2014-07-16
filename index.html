@@ -41,12 +41,12 @@
 		<title>Music Where You Are: Geolocation-based Music Discovery App</title>
 	</head>
 	<body>
-		<div id="icon_holder">
+		<section id="icon_holder">
 			<div class="open_div" aria-hidden="true" data-icon="W"></div>
 			<div class="open_div_spot" aria-hidden="true" data-icon="T"></div>
 			<div class="open_div_fav" aria-hidden="true" data-icon="t"></div>
-		</div>
-		<div id="genre_holder">
+		</section>
+		<section id="genre_holder" style="display:none;">
 			<div style="clear:both; margin-bottom:10px;"></div>
 			<div class="button off" id="avant_garde_button">
 			
@@ -198,12 +198,12 @@
 			</div>
 			</div>
 			<div style="clear:both"></div>
-		</div>
-		<div id="spot_holder">
+		</section>
+		<section id="spot_holder" style="display:none;">
 
-		</div>
-		<div id="fav_holder"></div>
-		<div id="info-area">
+		</section>
+		<section id="fav_holder" style="display:none"></section>
+		<section id="info-area" style="display:none">
 			<div id="intro_image"></div>
 			<div id="artist_holder">
 				<div style="width:100px; margin:auto"><img src="loading.gif" alt="loading"/>
@@ -213,13 +213,13 @@
 			</div>
 			<div class="close_div_info" aria-hidden="true" data-icon="P" style="font-size: 30px;"></div>
 
-		</div>
+		</section>
 
 		<!--<div class="genre" aria-hidden="true" data-icon="C"></div>
 		<div class="genre" aria-hidden="true" data-icon="D"></div>
 		<div class="genre" aria-hidden="true" data-icon="M"></div>-->
 
-		<div id="contact">
+		<section id="contact">
 			<ul>
 				<li>
 					<a href="mailto:robert.ostheimer@cityblinking.com"><img border="none" src="genre_icons/mail.svg" alt="email"/></a>
@@ -228,21 +228,21 @@
 					<a href="https://twitter.com/robostheimer" target="_blank"><img border="none" src="genre_icons/twitter.svg" alt="email"/></a>
 				</li>
 			</ul>
-		</div>
+		</section>
 
 		<header>
 
 			
 			
 		</header>
-		<div id="whereyouat">
+		<section id="whereyouat">
 			<form id="search" name="spot" method="post" >
 				<input type="text"  name="find music" id="findmusic" placeholder="City, ST or ST"  class="text"  onKeyDown="if(event.keyCode==13){var hasher = $('#findmusic').val(); hasher = hasher.replace(/ ,/g, '_');hasher = hasher.replace(/, /g, '+');hasher=hasher.replace(/,/g,'+');hasher=hasher.replace(/, /g,'+');hasher = hasher.replace(/    /g, '_');hasher = hasher.replace(/   /g, '_');hasher = hasher.replace(/  /g, '_');hasher = hasher.replace (/ /g, '_');window.location.hash='#'+hasher};">
 			</form>
 
 			<div class="search"  aria-hidden="true" data-icon="e" onClick="var hasher = $('#findmusic').val(); hasher = hasher.replace(/ ,/g, '_');hasher = hasher.replace(/, /g, '+');hasher=hasher.replace(/,/g,'+');hasher=hasher.replace(/, /g,'+');hasher = hasher.replace(/    /g, '_');hasher = hasher.replace(/   /g, '_');hasher = hasher.replace(/  /g, '_');hasher = hasher.replace (/ /g, '_');window.location.hash='#'+hasher"></div>
 
-		</div>
+		</section>
 
 		<div style="clear:both"></div>
 
@@ -253,20 +253,20 @@
 		<li class="folowwme inactive" id="follow_me" ></li>
 		-->
 		</ul>
-		<div id="geolocation_alert"></div>
-		<div id="map-area">
-			<div id="map-canvas">
+		<section id="geolocation_alert"></section>
+		<section id="map-area">
+			<section id="map-canvas">
 				<div style="width:100px; margin:auto"><img src="loading.gif" alt="loading"/>
 				</div>
-			</div>
-		</div>
+			</section>
+		</section>
 		<div style="clear:both"></div>
 
-		<div class="attribute">
+		<section class="attribute">
 			Note: This product uses a SPOTIFY API but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group.
 			<br/>
 			Powered By: <img src="genre_icons/echonest.svg" alt="echonest"/><img src="genre_icons/wikimedia.png" alt="wikimedia"/><img src="genre_icons/spotify_green.svg" alt="spotify"/>
-		</div>
+		</section>
 		<script></script>
 	</body>
 </html>
