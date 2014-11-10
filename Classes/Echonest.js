@@ -61,7 +61,7 @@ function EchonestJSON(arr, multiple)
 						
 						/////first part of conditional check to see if iterated songArr.title isn't already add to the app;  if this is true, it adds the song; 
 						
-						if (!cleanStr(songs_str, /\W/g).match(cleanStr(splitParans(titleArr[i]), /\W/g))){
+						if (!cleanStr(songs_str, /\W/g).toLowerCase().match(cleanStr(splitParans(titleArr[i]), /\W/g).toLowerCase())){
 							
 							////second part of conditionalsometimes titles, spotify ids or artists aren't listed in the data; this cleans it
 							if(titleArr[i] == null || locationArr[i] == null || spotArr[i] == null) {
